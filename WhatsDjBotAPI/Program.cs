@@ -1,14 +1,20 @@
 
+using Microsoft.EntityFrameworkCore;
+using WhatsDjBotAPI.Repositorys;
+
 namespace WhatsDjBotAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder();
 
             // Add services to the container.
-
+            builder.Services.AddDbContext<DbEntity>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+      
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IMusicRepository, MusicRepository>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

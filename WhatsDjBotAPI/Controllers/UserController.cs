@@ -5,17 +5,23 @@ namespace WhatsDjBotAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MusicController : ControllerBase
+public class UserController : ControllerBase
 {
     private readonly ILogger<MusicController> _logger;
 
-    public MusicController(ILogger<MusicController> logger)
+    public UserController(ILogger<MusicController> logger)
     {
         _logger = logger;
     }
 
-    [HttpGet]
+    [HttpPost]
     public Music GetRandomMusic()
+    {
+        return new();
+    }
+
+    [HttpGet]
+    public Music GetRandomUser()
     {
         return new();
     }
