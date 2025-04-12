@@ -13,10 +13,10 @@ namespace WhatsDjBotAPI.Repositorys
 
         public async Task<Music> GetRandomMusic()
         {
-            int lenght = await _context.Musics.CountAsync<Music>();
-
+            int lenght = await _context.Musics.MaxAsync(x => x.Id);
+            Console.WriteLine(lenght);
             Music? music =  await _context.Musics.FindAsync(new Random().Next(1, lenght));
-            while(music == null) { music = await _context.Musics.FindAsync(new Random().Next(1, lenght)); }
+            while(music == null) { music = await _context.Musics.FindAsync(new Random().Next(1, lenght + 1)); }
             Console.WriteLine($"ID: {music.Id}");
 
             return music;
