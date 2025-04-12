@@ -44,13 +44,13 @@ public class MusicController : ControllerBase
             };
             await _userRepository.InsertUser(user);
         }
-            
-        
+
+
 
         var message = new Message
         {
             UserId = user.Id,
-            DateTime = request.DateTime
+            DateTime = DateTime.Now
 
         };
 
