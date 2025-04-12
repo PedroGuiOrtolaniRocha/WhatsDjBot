@@ -1,25 +1,22 @@
-# Etapa 1: build da aplicação
+# Etapa 1: build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Copia os arquivos do projeto
-COPY *.sln .
-COPY WhatsDjBotAPI/*.csproj ./WhatsDjBotAPI/
+# Copia tudo dentro da pasta WhatsDjBotAPI
+COPY . . 
+
+# Restaura, compila e publica
 RUN dotnet restore
+RUN dotnet publish -c Release -o /app/out
 
-COPY . .
-WORKDIR /app/WhatsDjBotAPI
-RUN dotnet publish -c Release -o out
-
-# Etapa 2: imagem final para execução
+# Etapa 2: runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/WhatsDjBotAPI/out ./
 
-# Porta padrão do ASP.NET
+COPY --from=build /app/out ./
+
 EXPOSE 80
 
-# Variável de ambiente para o ASP.NET saber que está em produção
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 ENTRYPOINT ["dotnet", "WhatsDjBotAPI.dll"]
