@@ -24,15 +24,36 @@ public class MusicController : ControllerBase
         _musicRepository = musicRepository;
     }
 
-    [HttpGet]
-    public async Task<MusicResponse> GetRandomMusic()
+    [HttpGet("GetRamdomMusicFromPlatform")]
+    public async Task<MusicResponse> GetRandomMusicFromPlatform([FromQuery] string? platform)
     {
-        var music = await _musicRepository.GetRandomMusicId();
+        string[] platforms = new string[] { "Youtube", "Spotfy", "Deezer", "Soundcloud"};
+        int musicId;
 
-        MusicResponse musicResponse = new MusicResponse(music , _musicRepository, _userRepository, _messageRepository);
+        if(platform == null || !platforms.Contains<string>(platform)) 
+        {
+            musicId = await _musicRepository.GetRandomMusicId(); 
+        } 
+        else
+        {
+            musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform);
+        }
+
+        MusicResponse musicResponse = new MusicResponse(musicId, _musicRepository, _userRepository, _messageRepository);
 
         return musicResponse;
     }
+
+    [HttpGet("GetRamdomMusic")]
+    public async Task<MusicResponse> GetRandomMusic()
+    {
+        int musicId = await _musicRepository.GetRandomMusicId();
+        
+        MusicResponse musicResponse = new MusicResponse(musicId, _musicRepository, _userRepository, _messageRepository);
+
+        return musicResponse;
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> InsertMusic([FromBody] MusicRequest request)

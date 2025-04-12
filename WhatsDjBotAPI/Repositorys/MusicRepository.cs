@@ -11,6 +11,15 @@ namespace WhatsDjBotAPI.Repositorys
             _context = context;
         }
 
+        public async Task<int> GetRandomMusicIdByPlatform(string platform)
+        {
+            int lenght = await _context.Musics.MaxAsync(x => x.Id);
+            int randomId = new Random().Next(1, lenght);
+            Music? music = await _context.Musics.FirstOrDefaultAsync<Music>(x => x.Platform == platform && x.Id == randomId);
+            Console.WriteLine($"ID: {music.Id}");
+
+            return music.Id;
+        }
         public async Task<int> GetRandomMusicId()
         {
             int lenght = await _context.Musics.MaxAsync(x => x.Id);
