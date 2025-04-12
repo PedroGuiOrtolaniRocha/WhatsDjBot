@@ -11,6 +11,10 @@ namespace WhatsDjBotAPI.Repositorys
             _context = context;
         }
 
+        public async Task<Message> GetMessageById(int id)
+        {
+            return await _context.Messages.FindAsync(id);
+        }
 
         public async Task<int> InsertMessage(Message message)
         {

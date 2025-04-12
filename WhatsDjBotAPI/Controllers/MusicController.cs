@@ -25,10 +25,13 @@ public class MusicController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<Music> GetRandomMusic()
+    public async Task<MusicResponse> GetRandomMusic()
     {
-        var music = await _musicRepository.GetRandomMusic();
-        return music;
+        var music = await _musicRepository.GetRandomMusicId();
+
+        MusicResponse musicResponse = new MusicResponse(music , _musicRepository, _userRepository, _messageRepository);
+
+        return musicResponse;
     }
 
     [HttpPost]
