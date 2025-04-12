@@ -27,6 +27,8 @@ public class MusicController : ControllerBase
     [HttpGet("GetRamdomMusicFromPlatform")]
     public async Task<IActionResult?> GetRandomMusicFromPlatform([FromQuery] string? platform)
     {
+        return Ok();
+
         string[] platforms = new string[] { "Youtube", "Spotify", "Deezer", "Soundcloud"};
         int musicId;
 
