@@ -15,9 +15,11 @@ namespace WhatsDjBotAPI.Repositorys
         {
             int lenght = await _context.Musics.CountAsync<Music>();
 
-            int id = new Random().Next(1, lenght);
+            Music? music =  await _context.Musics.FindAsync(new Random().Next(1, lenght));
+            while(music == null) { music = await _context.Musics.FindAsync(new Random().Next(1, lenght)); }
+            Console.WriteLine($"ID: {music.Id}");
 
-            return await _context.Musics.FindAsync(id);
+            return music;
         }
 
         public async Task InsertMusic(Music music)
