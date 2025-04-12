@@ -26,7 +26,9 @@ namespace WhatsDjBotAPI
             // Configure the HTTP request pipeline.
             
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c => { 
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WhatsDjBotAPI v1");
+            });
             
 
             app.UseHttpsRedirection();
