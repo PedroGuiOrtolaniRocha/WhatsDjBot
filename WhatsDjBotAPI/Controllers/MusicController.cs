@@ -39,7 +39,7 @@ public class MusicController : ControllerBase
             musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform);
         }
 
-        MusicResponse musicResponse = MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository).Result;
+        var musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
 
         return musicResponse;
     }
@@ -49,7 +49,7 @@ public class MusicController : ControllerBase
     { 
         int musicId = await _musicRepository.GetRandomMusicId();
 
-        MusicResponse? musicResponse = MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository).Result;
+        var musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
 
         return musicResponse;
     }
