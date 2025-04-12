@@ -16,8 +16,10 @@ public class MusicController : ControllerBase
     private readonly IUserRepository _userRepository;
     private readonly IMusicRepository _musicRepository;
     private readonly IMessageRepository _messageRepository;
+    private readonly string[] _platforms;
     public MusicController(ILogger<MusicController> logger, IUserRepository userRepository, IMusicRepository musicRepository, IMessageRepository messageRepository)
     {
+        _platforms = new string[] { "Youtube", "Spotify", "Deezer", "Soundcloud" };
         _logger = logger;
         _messageRepository = messageRepository;
         _userRepository = userRepository;
@@ -27,23 +29,23 @@ public class MusicController : ControllerBase
     [HttpGet("GetRamdomMusicFromPlatform")]
     public async Task<IActionResult?> GetRandomMusicFromPlatform([FromQuery] string? platform)
     {
-        return Ok();
-
-        string[] platforms = new string[] { "Youtube", "Spotify", "Deezer", "Soundcloud"};
         int musicId;
+        MusicResponse? musicResponse;
 
-        if(platform == null || !platforms.Contains<string>(platform)) 
+
+        if (platform == null || !_platforms.Contains<string>(platform)) 
         {
-            musicId = await _musicRepository.GetRandomMusicId(); 
+            musicId = await _musicRepository.GetRandomMusicId();
+            musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
+            return Ok(musicResponse);
         } 
         else
         {
             musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform);
+            musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
+            return Ok(musicResponse);
         }
 
-        var musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
-
-        return Ok(musicResponse);
     }
 
     [HttpGet("GetRamdomMusic")]
