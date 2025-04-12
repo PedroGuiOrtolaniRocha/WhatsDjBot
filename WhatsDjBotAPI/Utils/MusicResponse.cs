@@ -6,28 +6,31 @@ namespace WhatsDjBotAPI.Utils
 {
     public class MusicResponse
     {
-        private readonly IMusicRepository _musicRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IMessageRepository _messageRepository;
-        public string link { get; set; }
-        public string platform { get; set; }
-        public string userName { get; set; }
+        public string Link { get; set; }
+        public string Platform { get; set; }
+        public string UserName { get; set; }
 
-        public MusicResponse(int id, IMusicRepository musicRepository, IUserRepository userRepository, IMessageRepository messageRepository)
+        public static async Task<MusicResponse?> CreateAsync(
+            int id,
+            IMusicRepository musicRepository,
+            IUserRepository userRepository,
+            IMessageRepository messageRepository)
         {
-            _musicRepository = musicRepository;
-            _userRepository = userRepository;
-            _messageRepository = messageRepository;
+            var music = await musicRepository.GetMusicById(id);
+            if (music == null) return null;
 
-            Music music = _musicRepository.GetMusicById(id).Result;
-            Message message = _messageRepository.GetMessageById(music.Id).Result;
-            Console.WriteLine(message.UserId);
-            User user = _userRepository.GetUserById(message.UserId).Result;
+            var message = await messageRepository.GetMessageById(music.MessageId);
+            if (message == null) return null;
 
-            link = music.Link;
-            platform = music.Platform;
-            userName = user.Name;
+            var user = await userRepository.GetUserById(message.UserId);
+            if (user == null) return null;
 
+            return new MusicResponse
+            {
+                Link = music.Link,
+                Platform = music.Platform,
+                UserName = user.Name
+            };
         }
     }
 }

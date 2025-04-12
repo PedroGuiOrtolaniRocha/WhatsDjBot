@@ -25,7 +25,7 @@ public class MusicController : ControllerBase
     }
 
     [HttpGet("GetRamdomMusicFromPlatform")]
-    public async Task<MusicResponse> GetRandomMusicFromPlatform([FromQuery] string? platform)
+    public async Task<MusicResponse?> GetRandomMusicFromPlatform([FromQuery] string? platform)
     {
         string[] platforms = new string[] { "Youtube", "Spotify", "Deezer", "Soundcloud"};
         int musicId;
@@ -39,17 +39,17 @@ public class MusicController : ControllerBase
             musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform);
         }
 
-        MusicResponse musicResponse = new MusicResponse(musicId, _musicRepository, _userRepository, _messageRepository);
+        MusicResponse musicResponse = MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository).Result;
 
         return musicResponse;
     }
 
     [HttpGet("GetRamdomMusic")]
-    public async Task<MusicResponse> GetRandomMusic()
-    {
+    public async Task<MusicResponse?> GetRandomMusic()
+    { 
         int musicId = await _musicRepository.GetRandomMusicId();
-        
-        MusicResponse musicResponse = new MusicResponse(musicId, _musicRepository, _userRepository, _messageRepository);
+
+        MusicResponse? musicResponse = MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository).Result;
 
         return musicResponse;
     }
