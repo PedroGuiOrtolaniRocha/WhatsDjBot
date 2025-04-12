@@ -37,6 +37,7 @@ public class MusicController : ControllerBase
         {
             musicId = await _musicRepository.GetRandomMusicId();
             musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
+            if(musicResponse == null) return NotFound($"Nenhuma música encontrada para a plataforma {platform}.");
             return Ok(musicResponse);
         } 
         else
