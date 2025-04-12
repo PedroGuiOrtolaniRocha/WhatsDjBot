@@ -28,6 +28,7 @@ namespace WhatsDjBotAPI
             app.UseSwagger();
             app.UseSwaggerUI(c => { 
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WhatsDjBotAPI v1");
+                c.RoutePrefix = "";
             });
             
 
