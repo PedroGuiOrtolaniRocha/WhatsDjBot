@@ -11,7 +11,7 @@ namespace WhatsDjBotAPI.Repositorys
             _context = context;
         }
 
-        public async Task<Music> GetRandomMusic()
+        public async Task<int> GetRandomMusicId()
         {
             int lenght = await _context.Musics.MaxAsync(x => x.Id);
             Console.WriteLine(lenght);
@@ -19,7 +19,12 @@ namespace WhatsDjBotAPI.Repositorys
             while(music == null) { music = await _context.Musics.FindAsync(new Random().Next(1, lenght + 1)); }
             Console.WriteLine($"ID: {music.Id}");
 
-            return music;
+            return music.Id;
+        }
+
+        public async Task<Music> GetMusicById(int id)
+        {
+            return await _context.Musics.FindAsync(id);
         }
 
         public async Task InsertMusic(Music music)

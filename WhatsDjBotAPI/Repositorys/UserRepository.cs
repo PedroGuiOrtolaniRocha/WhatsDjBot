@@ -11,6 +11,11 @@ namespace WhatsDjBotAPI.Repositorys
             _context = context;
         }
 
+        public async Task<User>? GetUserById(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync<User>(x => x.Id == id);
+        }
+
         public async Task<User>? GetUserByPhone(string phone)
         {
             return await _context.Users.FirstOrDefaultAsync<User>(x => x.Phone == phone );
