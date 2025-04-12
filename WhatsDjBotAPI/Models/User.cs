@@ -1,12 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhatsDjBotAPI.Models
 {
     [Table("User")]
     public class User
     {
-        public int Id { get; private set; }
+        [Key]
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Mobile { get; set; }
+        public string Phone { get; set; }
     }
 }

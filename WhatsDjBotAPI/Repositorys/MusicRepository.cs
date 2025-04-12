@@ -15,7 +15,7 @@ namespace WhatsDjBotAPI.Repositorys
         {
             int lenght = await _context.Musics.CountAsync<Music>();
 
-            int id = new Random().Next(lenght - 1);
+            int id = new Random().Next(1, lenght);
 
             return await _context.Musics.FindAsync(id);
         }

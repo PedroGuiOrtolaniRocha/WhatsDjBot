@@ -1,4 +1,5 @@
-﻿using WhatsDjBotAPI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WhatsDjBotAPI.Models;
 
 namespace WhatsDjBotAPI.Repositorys
 {
@@ -10,9 +11,9 @@ namespace WhatsDjBotAPI.Repositorys
             _context = context;
         }
 
-        public async Task<User> GetUserById(long id)
+        public async Task<User>? GetUserByPhone(string phone)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.FirstOrDefaultAsync<User>(x => x.Phone == phone );
         }
 
         public async Task InsertUser(User user)
