@@ -64,6 +64,8 @@ public class MusicController : ControllerBase
         };
 
         await _musicRepository.InsertMusic(music);
+        
+        Console.WriteLine($"MusicID: {music.Id}");
 
         return Ok();   
     }
