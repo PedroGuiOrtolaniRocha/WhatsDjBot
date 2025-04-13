@@ -13,5 +13,28 @@
             
             return platform;
         }
+
+        private static bool ContainsUrl(string message)
+        {
+            
+            if (message.Contains("https://"))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+
+        public static string? GetUrl(string message)
+        {
+
+            if (!ContainsUrl(message)) { return null; }
+
+            int startindex = message.IndexOf("https://");
+            int endindex = message.IndexOf(" ", startindex);
+            if (endindex == -1) { endindex = message.Length; }
+            
+            return message.Substring(startindex, endindex);
+        }
     }
 }

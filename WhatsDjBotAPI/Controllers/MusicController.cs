@@ -63,6 +63,12 @@ public class MusicController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> InsertMusic([FromBody] MusicRequest request)
     {
+        string? link = MessageTools.GetUrl(request.Link);
+        if (link == null)
+        {
+            return BadRequest("A mensagem não contem link");
+        }
+
         var user = await _userRepository.GetUserByPhone(request.Phone);
         if (user == null)
         {
@@ -87,7 +93,7 @@ public class MusicController : ControllerBase
 
         var music = new Music
         {
-            Link = request.Link,
+            Link = link,
             Platform = MessageTools.WhereLinkFrom(request.Link),
             MessageId = message.Id
         };
