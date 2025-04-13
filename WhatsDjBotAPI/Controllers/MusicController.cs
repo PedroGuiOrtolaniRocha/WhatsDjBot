@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using WhatsDjBotAPI.Models;
 using WhatsDjBotAPI.Repositorys;
 using WhatsDjBotAPI.Utils;
@@ -74,9 +75,9 @@ public class MusicController : ControllerBase
         {
             user = new User
             {
-                Name = request.UserName,
                 Phone = request.Phone
             };
+            user.Name = request.UserName;
             await _userRepository.InsertUser(user);
         }
 
