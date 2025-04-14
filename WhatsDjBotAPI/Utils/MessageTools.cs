@@ -75,7 +75,10 @@
             Console.WriteLine($"\n" +
                 $"\n\nStart: {startindex} End: {endindex}\n\n");
 
-            return message.Substring(startindex, endindex);
+            string url = message.Substring(startindex, endindex);
+            Console.WriteLine($"\n\nUrl: {url}\n\n");
+
+            return url;
         }
     }
 }
