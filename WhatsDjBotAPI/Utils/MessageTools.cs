@@ -70,7 +70,7 @@
             message = message.Substring(startindex);
 
             int endindex = message.IndexOf(" ");
-            if (endindex == -1) { endindex = message.IndexOf(message[-1]); }
+            if (endindex == -1) { endindex = message.Length -1; }
 
             Console.WriteLine($"\n" +
                 $"\n\nStart: {startindex} End: {endindex}\n\n");
