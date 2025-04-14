@@ -67,7 +67,9 @@
                 }
             }
 
-            int endindex = message.IndexOf(" ", startindex);
+            message = message.Substring(startindex);
+
+            int endindex = message.IndexOf(" ");
             if (endindex == -1) { endindex = message.Length; }
 
             Console.WriteLine($"\n" +
