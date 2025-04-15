@@ -67,7 +67,7 @@ public class MusicController : ControllerBase
         string? link = MessageTools.GetUrl(request.Link);
         if (link == null)
         {
-            return BadRequest("A mensagem não contem link");
+            return Ok("A mensagem não contem link");
         }
 
         var user = await _userRepository.GetUserByPhone(request.Phone);
