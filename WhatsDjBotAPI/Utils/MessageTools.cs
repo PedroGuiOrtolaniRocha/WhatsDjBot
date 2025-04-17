@@ -7,7 +7,7 @@
         {
             string platform = "Desconhecido";
 
-            if (url.Contains("youtube.com") || url.Contains("youtu.be")) { platform = "Youtube"; }
+            if (url.Contains("youtube.com") || url.Contains("youtu.be") || url.Contains("music.youtube")) { platform = "Youtube"; }
             if (url.Contains("spotify.com")) { platform = "Spotify"; }
             if (url.Contains("soundcloud.com")) { platform = "Soundcloud"; }
             if (url.Contains("deezer.com")) { platform = "Deezer"; }
