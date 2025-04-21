@@ -6,6 +6,6 @@ namespace WhatsDjBotAPI.Repositorys
     {
         public Task<User>? GetUserByPhone(string phone);
         public Task<User>? GetUserById(int id);
-        public Task InsertUser(User user);
+        public Task<int> InsertUser(User user);
     }
 }

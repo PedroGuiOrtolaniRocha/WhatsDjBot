@@ -64,6 +64,8 @@ public class MusicController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> InsertMusic([FromBody] MusicRequest request)
     {
+        int userId;
+
         string? link = MessageTools.GetUrl(request.Link);
         if (link == null)
         {
@@ -78,7 +80,9 @@ public class MusicController : ControllerBase
                 Phone = request.Phone
             };
             user.Name = request.UserName;
-            await _userRepository.InsertUser(user);
+            userId = await _userRepository.InsertUser(user);
+            user.Id = userId;
+
         }
 
 
@@ -99,7 +103,7 @@ public class MusicController : ControllerBase
             MessageId = message.Id
         };
 
-        await _musicRepository.InsertMusic(music);
+        await _musicRepository.InsertMusic(music, user);
         
         Console.WriteLine($"MusicID: {music.Id}");
 
