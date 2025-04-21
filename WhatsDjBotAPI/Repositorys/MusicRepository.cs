@@ -38,8 +38,29 @@ namespace WhatsDjBotAPI.Repositorys
             return await _context.Musics.FindAsync(id);
         }
 
-        public async Task InsertMusic(Music music)
+        public async Task InsertMusic(Music music, User sender)
         {
+            List<Music> musics = _context.Musics.Where<Music>(x => x.Link == music.Link).ToList();
+            List<Message> messages = new List<Message>();
+
+            if (musics.Count() != 0)
+            {
+                List<int> usersWhosSendThisMusic = new List<int>();
+
+                foreach (Music m in musics)
+                {
+                    messages.Add(_context.Messages.Where<Message>(x => x.Id == music.MessageId).First());
+                }
+                foreach (Message m in messages)
+                {
+                    usersWhosSendThisMusic.Add(m.UserId);
+                }
+                if (usersWhosSendThisMusic.Contains(sender.Id))
+                {
+                    return;
+                }
+            } 
+           
             await _context.Musics.AddAsync(music);
             await _context.SaveChangesAsync();
         }

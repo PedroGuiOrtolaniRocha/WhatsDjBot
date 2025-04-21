@@ -7,6 +7,6 @@ namespace WhatsDjBotAPI.Repositorys
         public Task<int> GetRandomMusicIdByPlatform(string platform);
         public Task<int> GetRandomMusicId();
         public Task<Music> GetMusicById(int id);
-        public Task InsertMusic(Music music);
+        public Task InsertMusic(Music music, User sender);
     }
 }

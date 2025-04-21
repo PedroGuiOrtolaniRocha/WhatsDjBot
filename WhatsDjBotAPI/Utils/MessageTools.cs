@@ -39,35 +39,49 @@
 
             if (!ContainsUrl(message)) { return null; }
 
-            int startindex = message.IndexOf("https://");
+            int startindex = -1;
 
-            if (startindex == -1)
+            if (message.Contains("https://"))
             {
-                startindex = message.IndexOf("http://");
+                startindex = message.IndexOf("https://");
+                message = message.Substring(startindex);
+            }
+
+            if (startindex == -1 && message.Contains("http://"))
+            {
+
+                message.Replace("http://", "https://");
+                startindex = message.IndexOf("https://");
+                message = message.Substring(startindex);
+            }
+
+            if (startindex == -1 && message.Contains("www."))
+            {
+                message.Replace("www.", "https://");
+                startindex = message.IndexOf("https://");
+                message = message.Substring(startindex);
+
             }
 
             if (startindex == -1)
             {
-                startindex = message.IndexOf("www.");
-
-                if (startindex == -1)
+                foreach(string platform in PossiblePlatforms)
                 {
-                    foreach(string platform in PossiblePlatforms)
+                    if (startindex == -1)
                     {
-                        if (startindex == -1)
+                        if (message.Contains(platform))
                         {
-                            if (message.Contains(platform))
-                            {
-                                startindex = message.IndexOf(platform);
-                                break;
-                            }
+                            startindex = message.IndexOf(platform);
+                            message = message.Substring(startindex);
+                            message = "https://" + message;
+                            startindex = 0;
+                            break;
                         }
                     }
-                    if (startindex == -1) { return null; }
                 }
+                if (startindex == -1) { return null; }
             }
 
-            message = message.Substring(startindex);
 
             int endindex = message.IndexOf(" ");
             if (endindex == -1) { endindex = message.Length; }
