@@ -50,14 +50,14 @@
             if (startindex == -1 && message.Contains("http://"))
             {
 
-                message.Replace("http://", "https://");
+                message = message.Replace("http://", "https://");
                 startindex = message.IndexOf("https://");
                 message = message.Substring(startindex);
             }
 
             if (startindex == -1 && message.Contains("www."))
             {
-                message.Replace("www.", "https://");
+                message = message.Replace("www.", "https://");
                 startindex = message.IndexOf("https://");
                 message = message.Substring(startindex);
 
@@ -72,7 +72,6 @@
                         if (message.Contains(platform))
                         {
                             startindex = message.IndexOf(platform);
-                            message = message.Substring(startindex);
                             message = "https://" + message;
                             startindex = 0;
                             break;
