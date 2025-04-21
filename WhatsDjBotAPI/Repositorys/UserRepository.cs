@@ -21,7 +21,7 @@ namespace WhatsDjBotAPI.Repositorys
             return await _context.Users.FirstOrDefaultAsync<User>(x => x.Phone == phone );
         }
 
-        public async Task InsertUser(User user)
+        public async Task<int> InsertUser(User user)
         {
             var userExist = await GetUserByPhone(user.Phone);
             if (userExist != null)
@@ -29,10 +29,10 @@ namespace WhatsDjBotAPI.Repositorys
                 user.Id = userExist.Id;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
-                return;
             }
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+            return user.Id;
         }
     }
 }
