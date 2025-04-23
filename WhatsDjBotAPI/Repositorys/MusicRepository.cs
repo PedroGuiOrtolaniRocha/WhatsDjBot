@@ -17,7 +17,7 @@ namespace WhatsDjBotAPI.Repositorys
             Console.WriteLine("Plataforma" + platform);
 
 
-            List<Music> musics = await _context.Musics.Where(x => x.Platform == platform && x.GroupId == groupId).ToListAsync<Music>();
+            List<Music> musics = await _context.Musics.Where(x => x.Platform == platform && x.groupId == groupId).ToListAsync<Music>();
             int randomIndex = new Random().Next(0, musics.Count());
 
             Music? music = musics[randomIndex];
@@ -27,7 +27,7 @@ namespace WhatsDjBotAPI.Repositorys
         public async Task<int> GetRandomMusicId(string groupId)
         {
            
-            List<Music> groupMusics = _context.Musics.Where(x => x.GroupId == groupId).ToList();
+            List<Music> groupMusics = _context.Musics.Where(x => x.groupId == groupId).ToList();
             int randomIndex = new Random().Next(0, groupMusics.Count());
             Music? music = groupMusics[randomIndex];
             Console.WriteLine($"ID: {music.Id}");

@@ -101,7 +101,7 @@ public class MusicController : ControllerBase
             Link = link,
             Platform = MessageTools.WhereLinkFrom(request.Link),
             MessageId = message.Id,
-            GroupId = request.GroupId
+            groupId = request.GroupId
         };
 
         await _musicRepository.InsertMusic(music, user);
