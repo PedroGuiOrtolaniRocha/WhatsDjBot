@@ -30,21 +30,22 @@ public class MusicController : ControllerBase
     [HttpGet("GetRamdomMusicFromPlatform")]
     public async Task<IActionResult?> GetRandomMusicFromPlatform([FromQuery] string? platform, string groupId)
     {
-        int musicId;
+        int? musicId;
         MusicResponse? musicResponse;
 
 
         if (platform == null || !_platforms.Contains<string>(platform)) 
         {
             musicId = await _musicRepository.GetRandomMusicId(groupId);
-            musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
-            if(musicResponse == null) return NotFound($"Nenhuma música encontrada para a plataforma {platform}.");
+            if(musicId == null) return NotFound($"Nenhuma música encontrada para a plataforma {platform}.");
+            musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
             return Ok(musicResponse);
         } 
         else
         {
             musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform, groupId);
-            musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
+            if (musicId == null) return NotFound($"Nenhuma música encontrada para a plataforma {platform}.");
+            musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
             return Ok(musicResponse);
         }
 

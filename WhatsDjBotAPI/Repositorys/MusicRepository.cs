@@ -12,7 +12,7 @@ namespace WhatsDjBotAPI.Repositorys
             _context = context;
         }
 
-        public async Task<int> GetRandomMusicIdByPlatform(string platform, string groupId)
+        public async Task<int?> GetRandomMusicIdByPlatform(string platform, string groupId)
         {
             Console.WriteLine("Plataforma" + platform);
 
@@ -21,18 +21,24 @@ namespace WhatsDjBotAPI.Repositorys
             int randomIndex = new Random().Next(0, musics.Count());
 
             Music? music = musics[randomIndex];
-
+            if (music == null)
+            {
+                return null;
+            }
             return music.Id;
         }
-        public async Task<int> GetRandomMusicId(string groupId)
+        public async Task<int?> GetRandomMusicId(string groupId)
         {
            
             List<Music> groupMusics = _context.Musics.Where(x => x.groupId == groupId).ToList();
             int randomIndex = new Random().Next(0, groupMusics.Count());
             Music? music = groupMusics[randomIndex];
-            Console.WriteLine($"ID: {music.Id}");
-
+            if (music == null)
+            {
+                return null;
+            }
             return music.Id;
+
         }
 
         public async Task<Music> GetMusicById(int id)
