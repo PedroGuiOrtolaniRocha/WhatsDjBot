@@ -54,9 +54,10 @@ public class MusicController : ControllerBase
     [HttpGet("GetRamdomMusic")]
     public async Task<IActionResult?> GetRandomMusic(string groupId)
     { 
-        int musicId = await _musicRepository.GetRandomMusicId(groupId);
+        int? musicId = await _musicRepository.GetRandomMusicId(groupId);
+        if (musicId == null) return NotFound($"Nenhuma música encontrada para o grupo.");
 
-        var musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
+        var musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
 
         return Ok(musicResponse);
     }
