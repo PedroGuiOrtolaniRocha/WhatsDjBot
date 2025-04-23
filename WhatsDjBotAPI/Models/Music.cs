@@ -9,5 +9,6 @@ namespace WhatsDjBotAPI.Models
         public string Link { get; set; }
         public string Platform { get; set; }
         public int MessageId { get; set; }
+        public string GroupId { get; set; }
     }
 }

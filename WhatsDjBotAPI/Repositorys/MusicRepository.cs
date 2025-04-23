@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 using WhatsDjBotAPI.Models;
 namespace WhatsDjBotAPI.Repositorys
 {
@@ -11,23 +12,24 @@ namespace WhatsDjBotAPI.Repositorys
             _context = context;
         }
 
-        public async Task<int> GetRandomMusicIdByPlatform(string platform)
+        public async Task<int> GetRandomMusicIdByPlatform(string platform, string groupId)
         {
             Console.WriteLine("Plataforma" + platform);
 
-            List<Music> musics = await _context.Musics.Where(x => x.Platform == platform).ToListAsync<Music>();
+
+            List<Music> musics = await _context.Musics.Where(x => x.Platform == platform && x.GroupId == groupId).ToListAsync<Music>();
             int randomIndex = new Random().Next(0, musics.Count());
 
             Music? music = musics[randomIndex];
 
             return music.Id;
         }
-        public async Task<int> GetRandomMusicId()
+        public async Task<int> GetRandomMusicId(string groupId)
         {
-            int lenght = await _context.Musics.MaxAsync(x => x.Id);
-            Console.WriteLine(lenght);
-            Music? music =  await _context.Musics.FindAsync(new Random().Next(1, lenght));
-            while(music == null) { music = await _context.Musics.FindAsync(new Random().Next(1, lenght + 1)); }
+           
+            List<Music> groupMusics = _context.Musics.Where(x => x.GroupId == groupId).ToList();
+            int randomIndex = new Random().Next(0, groupMusics.Count());
+            Music? music = groupMusics[randomIndex];
             Console.WriteLine($"ID: {music.Id}");
 
             return music.Id;

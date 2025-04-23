@@ -28,7 +28,7 @@ public class MusicController : ControllerBase
     }
 
     [HttpGet("GetRamdomMusicFromPlatform")]
-    public async Task<IActionResult?> GetRandomMusicFromPlatform([FromQuery] string? platform)
+    public async Task<IActionResult?> GetRandomMusicFromPlatform([FromQuery] string? platform, string groupId)
     {
         int musicId;
         MusicResponse? musicResponse;
@@ -36,14 +36,14 @@ public class MusicController : ControllerBase
 
         if (platform == null || !_platforms.Contains<string>(platform)) 
         {
-            musicId = await _musicRepository.GetRandomMusicId();
+            musicId = await _musicRepository.GetRandomMusicId(groupId);
             musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
             if(musicResponse == null) return NotFound($"Nenhuma música encontrada para a plataforma {platform}.");
             return Ok(musicResponse);
         } 
         else
         {
-            musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform);
+            musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform, groupId);
             musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
             return Ok(musicResponse);
         }
@@ -51,9 +51,9 @@ public class MusicController : ControllerBase
     }
 
     [HttpGet("GetRamdomMusic")]
-    public async Task<IActionResult?> GetRandomMusic()
+    public async Task<IActionResult?> GetRandomMusic(string groupId)
     { 
-        int musicId = await _musicRepository.GetRandomMusicId();
+        int musicId = await _musicRepository.GetRandomMusicId(groupId);
 
         var musicResponse = await MusicResponse.CreateAsync(musicId, _musicRepository, _userRepository, _messageRepository);
 
