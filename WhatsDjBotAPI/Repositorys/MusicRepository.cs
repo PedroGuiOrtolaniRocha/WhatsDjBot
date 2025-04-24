@@ -50,9 +50,14 @@ namespace WhatsDjBotAPI.Repositorys
         public async Task InsertMusic(Music music, User sender)
         {
             bool musicaExistente = false;
-            List<Music> musics = _context.Musics.Where<Music>(x => x.Link == music.Link).ToList();
+            List<Music>? musics = _context.Musics.Where<Music>(x => x.Link == music.Link).ToList();
+            if(musics == null)
+            {
+                await _context.Musics.AddAsync(music);
+                await _context.SaveChangesAsync();
+            }
 
-            foreach(var item in musics)
+            foreach (var item in musics)
             {
                 if (item.Link == music.Link && item.groupId == music.groupId)
                 {
