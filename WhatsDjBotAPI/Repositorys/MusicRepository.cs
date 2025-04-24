@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.RegularExpressions;
 using WhatsDjBotAPI.Models;
 namespace WhatsDjBotAPI.Repositorys
@@ -48,27 +49,18 @@ namespace WhatsDjBotAPI.Repositorys
 
         public async Task InsertMusic(Music music, User sender)
         {
+            bool musicaExistente = false;
             List<Music> musics = _context.Musics.Where<Music>(x => x.Link == music.Link).ToList();
-            List<Message> messages = new List<Message>();
 
-            if (musics.Count() != 0)
+            foreach(var item in musics)
             {
-                List<int> usersWhosSendThisMusic = new List<int>();
-
-                foreach (Music m in musics)
+                if (item.Link == music.Link && item.groupId == music.groupId)
                 {
-                    messages.Add(_context.Messages.Where<Message>(x => x.Id == music.MessageId).First());
-                }
-                foreach (Message m in messages)
-                {
-                    usersWhosSendThisMusic.Add(m.UserId);
-                }
-                if (usersWhosSendThisMusic.Contains(sender.Id))
-                {
+                    musicaExistente = true;
                     return;
                 }
-            } 
-           
+            }
+
             await _context.Musics.AddAsync(music);
             await _context.SaveChangesAsync();
         }
