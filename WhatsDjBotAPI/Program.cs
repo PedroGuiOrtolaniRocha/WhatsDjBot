@@ -11,6 +11,7 @@ namespace WhatsDjBotAPI
             var builder = WebApplication.CreateBuilder();
 
             // Add services to the container.
+            Console.WriteLine($"WhatsDjBotAPI is starting...;\nConnectionString : {builder.Configuration.GetConnectionString("FamiliaUnip")}");
             builder.Services.AddDbContext<DbEntity>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("FamiliaUnip")));
         
             builder.Services.AddScoped<IUserRepository, UserRepository>();
