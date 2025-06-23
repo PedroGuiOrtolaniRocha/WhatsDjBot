@@ -91,9 +91,7 @@ public class MusicController : ControllerBase
 
         var message = new Message
         {
-            UserId = user.Id,
-            DateTime = request.DateTime
-
+            UserId = user.Id
         };
 
         await _messageRepository.InsertMessage(message);
