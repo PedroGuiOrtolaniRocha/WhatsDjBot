@@ -26,8 +26,7 @@
             UserId = messageKey["participant"].ToString();
             UserNumber = UserId.Substring(0, 13);
 
-            IsMentioned = messageData.ContainsKey("contextInfo") &&
-                        ((List<string>)messageData["contextInfo"]).Contains(_bot.BotId);
+            IsMentioned = messageData.ContainsKey("contextInfo") && messageData["contextInfo"].ToString().Contains(_bot.BotId);
 
             GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
             IsGroup = messageData["key"].ToString().Contains("@g.us");
