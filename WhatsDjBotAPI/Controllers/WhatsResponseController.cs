@@ -21,11 +21,10 @@ public class WhatsResponseController : ControllerBase
             body = await reader.ReadToEndAsync();
         }
 
-        var reqList = body.Split(',');
-
-        foreach(var item in reqList)
+        Dictionary<string, object> reqDict = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(body);
+        foreach (var item in reqDict)
         {
-            Console.WriteLine($"Key: {item}\n\n");
+            Console.WriteLine($"Key: {item.Key}\nValue: {item.Value}\n\n");
         }
 
         var response = new
