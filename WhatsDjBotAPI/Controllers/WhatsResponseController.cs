@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace WhatsBot.Controllers;
 public class WhatsResponseController : ControllerBase
@@ -8,7 +9,16 @@ public class WhatsResponseController : ControllerBase
     public async Task<IActionResult> ReadResponse()
     {
 
-        Console.WriteLine("Received JSON: " + HttpContext.Request.BodyReader.ToString());
+        string body = "";
+        
+        if(HttpContext.Request.Body.CanSeek)
+        {
+            HttpContext.Request.Body.Seek(0, System.IO.SeekOrigin.Begin);
+            using StreamReader reader = new(HttpContext.Request.Body, Encoding.UTF8, false, 1024, true);
+            body = await reader.ReadToEndAsync();
+        }
+        
+        Console.WriteLine("Received JSON: " + body);
 
         var response = new
         {
