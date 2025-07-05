@@ -7,6 +7,7 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/message-upsert")]
     public IActionResult ReadResponse()
     {
+        Console.WriteLine("cai aq");
         Console.WriteLine("Received JSON: " + HttpContext.Request.Body.ToString());
 
         var response = new
