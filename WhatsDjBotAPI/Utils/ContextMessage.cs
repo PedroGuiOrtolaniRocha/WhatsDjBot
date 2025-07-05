@@ -17,7 +17,7 @@
             Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
 
             Dictionary<string, string> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["message"].ToString());
-            Dictionary<string, string> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["key"].ToString());
+            Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
 
 
             Message = messageInfo["conversation"];
