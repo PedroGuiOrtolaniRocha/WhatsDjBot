@@ -14,8 +14,9 @@ public class WhatsResponseController : ControllerBase
         }
 
         string body = "";
-        
-        if(HttpContext.Request.Body.CanSeek)
+
+        Console.WriteLine(HttpContext.Request.Body.CanSeek);
+            if (HttpContext.Request.Body.CanSeek)
         {
             HttpContext.Request.Body.Seek(0, System.IO.SeekOrigin.Begin);
             using StreamReader reader = new(HttpContext.Request.Body, Encoding.UTF8, false, 1024, true);
