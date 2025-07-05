@@ -16,9 +16,12 @@
         {
             _bot = bot;
             Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
-
-            Dictionary<string, string> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["message"].ToString());
             Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
+
+            GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
+            IsGroup = messageData["key"].ToString().Contains("@g.us");
+            
+            Dictionary<string, string> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["message"].ToString());
 
 
             Message = messageInfo["conversation"];
@@ -28,10 +31,13 @@
 
             IsMentioned = Message.Contains("@"+_bot.BotNumber);
 
-            GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
-            IsGroup = messageData["key"].ToString().Contains("@g.us");
-
-            IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
-        }
+            if (IsGroup)
+            {
+                IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
+            }
+            else
+            {
+                IsResponse = messageData["messageContextInfo"].ToString().Contains(_bot.BotId) && messageData["messageContextInfo"].ToString().Contains("quotedMessage");
+            }
     }
 }
