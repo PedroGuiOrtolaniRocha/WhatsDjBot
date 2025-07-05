@@ -5,6 +5,7 @@
         public string Message { get; private set; }
         public string UserName { get; private set; }
         public string UserId { get; private set; }
+        public string GroupId { get; private set; }
         public string UserNumber { get; private set; }
         public bool IsMentioned { get; private set; }
         public bool IsResponse { get; private set; }
@@ -28,6 +29,7 @@
             IsMentioned = messageData.ContainsKey("mentionedJidList") &&
                         ((List<string>)messageData["mentionedJidList"]).Contains(_bot.BotId);
 
+            GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
             IsGroup = messageData["key"].ToString().Contains("@g.us");
 
             IsResponse = messageData.ContainsKey("quotedMsg") &&
