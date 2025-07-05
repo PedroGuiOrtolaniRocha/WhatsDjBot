@@ -1,0 +1,20 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace WhatsBot.Controllers;
+public class WhatsResponseController : ControllerBase
+{
+    [HttpPost]
+    [Route("api/whatsresponse")]
+    public IActionResult ReadResponse()
+    {
+        Console.WriteLine("Received JSON: " + HttpContext.Response.Body);
+
+        var response = new
+        {
+            Message = "Hello from WhatsBot!",
+            Timestamp = DateTime.UtcNow
+        };
+        return Ok(response);
+    }
+}
+
