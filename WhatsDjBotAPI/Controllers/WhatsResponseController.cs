@@ -17,8 +17,8 @@ public class WhatsResponseController : ControllerBase
             using StreamReader reader = new(HttpContext.Request.Body, Encoding.UTF8, false, 1024, true);
             body = await reader.ReadToEndAsync();
         }
-        
-        Console.WriteLine("Received JSON: " + body);
+
+        Console.WriteLine("Received JSON: " + body.ToString());
 
         var response = new
         {
