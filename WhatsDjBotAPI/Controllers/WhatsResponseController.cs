@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using WhatsDjBotAPI.Utils;
 
 namespace WhatsBot.Controllers;
 public class WhatsResponseController : ControllerBase
 {
+    private BotSettings _bot = new();
+
     [HttpPost]
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> ReadResponse()
@@ -26,6 +29,18 @@ public class WhatsResponseController : ControllerBase
         {
             Console.WriteLine($"Key: {item.Key}\nValue: {item.Value}\n\n");
         }
+
+        if (_bot.BotId == null)
+        {
+            _bot.BotSet(
+                reqDict["instance"].ToString(),
+                reqDict["sender"].ToString() 
+            );
+        }
+
+        Console.WriteLine($"Bot Name: {_bot.BotName}");
+        Console.WriteLine($"Bot ID: {_bot.BotId}");
+        Console.WriteLine($"Bot Number: {_bot.BotNumber}");
 
         var response = new
         {
