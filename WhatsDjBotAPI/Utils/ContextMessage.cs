@@ -37,7 +37,7 @@
             }
             else
             {
-                IsResponse = messageData["messageContextInfo"].ToString().Contains(_bot.BotId) && messageData["messageContextInfo"].ToString().Contains("quotedMessage");
+                IsResponse = false;
             }
         }
     }
