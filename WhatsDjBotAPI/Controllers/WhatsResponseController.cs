@@ -10,7 +10,7 @@ public class WhatsResponseController : ControllerBase
         Console.WriteLine("cai aq");
         Console.WriteLine("Received Header: " + HttpContext.Request.Headers.ToString());
 
-        Console.WriteLine("Received JSON: " + HttpContext.Request.Body.ToString());
+        Console.WriteLine("Received JSON: " + HttpContext.Request.Body + GetRequestBody(HttpContext));
 
         var response = new
         {
@@ -18,6 +18,14 @@ public class WhatsResponseController : ControllerBase
             Timestamp = DateTime.UtcNow
         };
         return Ok(response);
+    }
+
+    public static string GetRequestBody(HttpContext httpContext)
+    {
+        var bodyStream = new StreamReader(httpContext.Request.Body);
+        bodyStream.BaseStream.Seek(0, SeekOrigin.Begin);
+        var bodyText = bodyStream.ReadToEnd();
+        return bodyText;
     }
 }
 
