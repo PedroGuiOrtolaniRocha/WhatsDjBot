@@ -7,9 +7,8 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> ReadResponse()
     {
-        var rawMessage = await HttpContext.Request.ReadFromJsonAsync<String>();
 
-        Console.WriteLine("Received JSON: " + rawMessage);
+        Console.WriteLine("Received JSON: " + HttpContext.Request.BodyReader.ToString());
 
         var response = new
         {
