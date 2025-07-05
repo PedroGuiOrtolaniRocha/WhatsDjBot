@@ -20,7 +20,7 @@
 
             GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
             IsGroup = messageData["key"].ToString().Contains("@g.us");
-            
+
             Dictionary<string, string> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["message"].ToString());
 
 
@@ -29,7 +29,7 @@
             UserId = messageKey["participant"].ToString();
             UserNumber = UserId.Substring(0, 13);
 
-            IsMentioned = Message.Contains("@"+_bot.BotNumber);
+            IsMentioned = Message.Contains("@" + _bot.BotNumber);
 
             if (IsGroup)
             {
@@ -39,5 +39,6 @@
             {
                 IsResponse = messageData["messageContextInfo"].ToString().Contains(_bot.BotId) && messageData["messageContextInfo"].ToString().Contains("quotedMessage");
             }
+        }
     }
 }
