@@ -15,9 +15,12 @@
         public ContextMessage(object messageDataObj, BotSettings bot)
         {
             _bot = bot;
+
+            Console.WriteLine("ContextMessage Constructor Called");
             Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
             Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
 
+            Console.WriteLine("Message Data and Key Deserialized");
             GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
             IsGroup = messageData["key"].ToString().Contains("@g.us");
 
