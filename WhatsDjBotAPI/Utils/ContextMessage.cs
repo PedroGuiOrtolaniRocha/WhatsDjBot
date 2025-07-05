@@ -28,17 +28,18 @@
             Message = messageInfo["conversation"].ToString();
             UserName = messageData["pushName"].ToString();
             Console.WriteLine($"variaveis setadas");
-            IsMentioned = Message.Contains("@" + _bot.BotNumber);
 
             if (IsGroup)
             {
                 IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
                 UserId = messageKey["participant"].ToString();
                 GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
+                IsMentioned = Message.Contains("@" + _bot.BotNumber);
             }
 
             else
             {
+                IsMentioned = false;
                 IsResponse = false;
                 UserId = messageKey["remoteJid"].ToString();
                 GroupId = null;

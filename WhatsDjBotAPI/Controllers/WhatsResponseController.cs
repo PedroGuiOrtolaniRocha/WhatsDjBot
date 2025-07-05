@@ -51,7 +51,15 @@ public class WhatsResponseController : ControllerBase
         Console.WriteLine($"Is Mentioned: {contextMessage.IsMentioned}");
         Console.WriteLine($"Is Response: {contextMessage.IsResponse}");
         Console.WriteLine($"Is Group: {contextMessage.IsGroup}");
-        Console.WriteLine($"Group ID: {contextMessage.GroupId}");
+        if (contextMessage.IsGroup)
+        {
+            Console.WriteLine($"Group ID: {contextMessage.GroupId}");
+        }
+        else
+        {
+            Console.WriteLine("This is a private message.");
+        }
+
         var response = new
         {
             Message = "Hello from WhatsBot!",
