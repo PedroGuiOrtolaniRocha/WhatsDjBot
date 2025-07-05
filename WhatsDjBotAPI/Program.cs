@@ -36,10 +36,11 @@ namespace WhatsDjBotAPI
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
+            Console.Clear();
+            Console.WriteLine("\n\nAPI Online\n\n");
         }
     }
 }
