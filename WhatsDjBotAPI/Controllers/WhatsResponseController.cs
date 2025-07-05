@@ -7,7 +7,7 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse")]
     public IActionResult ReadResponse()
     {
-        Console.WriteLine("Received JSON: " + HttpContext.Response.Body);
+        Console.WriteLine("Received JSON: " + HttpContext.Response.Body.ToString());
 
         var response = new
         {
