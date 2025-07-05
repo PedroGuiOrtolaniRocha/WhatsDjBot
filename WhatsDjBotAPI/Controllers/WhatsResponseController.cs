@@ -5,10 +5,10 @@ public class WhatsResponseController : ControllerBase
 {
     [HttpPost]
     [Route("api/whatsresponse/message-upsert")]
-    public IActionResult ReadResponse()
+    public IActionResult ReadResponse(string json)
     {
         Console.WriteLine("cai aq");
-        Console.WriteLine("Received JSON: " + HttpContext.Request.Body.ToString());
+        Console.WriteLine("Received JSON: " + HttpContext.Request.Body.ToString() + json);
 
         var response = new
         {
