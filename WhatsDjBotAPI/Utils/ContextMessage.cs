@@ -31,7 +31,7 @@
             GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
             IsGroup = messageData["key"].ToString().Contains("@g.us");
 
-            IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData.ContainsKey("quotedMessage");
+            IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
         }
     }
 }
