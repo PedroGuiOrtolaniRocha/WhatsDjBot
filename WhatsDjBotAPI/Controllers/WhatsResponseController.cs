@@ -21,14 +21,12 @@ public class WhatsResponseController : ControllerBase
             body = await reader.ReadToEndAsync();
         }
 
-        var reqList = System.Text.Json.JsonSerializer.Deserialize<List<string>>(body);
+        var reqList = body.Split(',');
 
         foreach(var item in reqList)
         {
             Console.WriteLine($"Key: {item}\n\n");
-            
         }
-        Console.WriteLine("Received JSON: " );
 
         var response = new
         {
