@@ -1,0 +1,36 @@
+﻿namespace WhatsDjBotAPI.Utils
+{
+    public class ContextMessage
+    {
+        public string Message { get; private set; }
+        public string UserName { get; private set; }
+        public string UserId { get; private set; }
+        public string UserNumber { get; private set; }
+        public bool IsMentioned { get; private set; }
+        public bool IsResponse { get; private set; }
+        public bool IsGroup { get; private set; }
+        private readonly BotSettings _bot;
+
+        public ContextMessage(object messageDataObj, BotSettings bot)
+        {
+            _bot = bot;
+            Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
+
+            Dictionary<string, string> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["message"].ToString());
+
+            Message = messageInfo["conversation"];
+            UserName = messageData["pushName"].ToString();
+            UserId = messageData["sender"].ToString();
+            UserNumber = UserId.Substring(0, 13);
+
+            IsMentioned = messageData.ContainsKey("mentionedJidList") &&
+                        ((List<string>)messageData["mentionedJidList"]).Contains(_bot.BotId);
+
+            IsGroup = messageData["key"].ToString().Contains("@g.us");
+
+            IsResponse = messageData.ContainsKey("quotedMsg") &&
+                         messageData["quotedMsg"] != null &&
+                         messageData["contextInfo"].ToString().Contains(_bot.BotId);
+        }
+    }
+}

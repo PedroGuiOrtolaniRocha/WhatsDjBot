@@ -42,6 +42,15 @@ public class WhatsResponseController : ControllerBase
         Console.WriteLine($"Bot ID: {_bot.BotId}");
         Console.WriteLine($"Bot Number: {_bot.BotNumber}");
 
+        ContextMessage contextMessage = new(reqDict["data"], _bot);
+
+        Console.WriteLine($"Message: {contextMessage.Message}");
+        Console.WriteLine($"User Name: {contextMessage.UserName}");
+        Console.WriteLine($"User ID: {contextMessage.UserId}");
+        Console.WriteLine($"User Number: {contextMessage.UserNumber}");
+        Console.WriteLine($"Is Mentioned: {contextMessage.IsMentioned}");
+        Console.WriteLine($"Is Response: {contextMessage.IsResponse}");
+        Console.WriteLine($"Is Group: {contextMessage.IsGroup}");
         var response = new
         {
             Message = "Hello from WhatsBot!",
