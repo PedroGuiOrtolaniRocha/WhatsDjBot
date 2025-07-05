@@ -60,12 +60,7 @@ public class WhatsResponseController : ControllerBase
             Console.WriteLine("This is a private message.");
         }
 
-        var response = new
-        {
-            Message = "Hello from WhatsBot!",
-            Timestamp = DateTime.UtcNow
-        };
-        return Ok(response);
+        return Ok();
     }
 
 
