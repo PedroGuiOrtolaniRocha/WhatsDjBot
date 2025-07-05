@@ -4,7 +4,7 @@ namespace WhatsBot.Controllers;
 public class WhatsResponseController : ControllerBase
 {
     [HttpPost]
-    [Route("api/whatsresponse")]
+    [Route("api/whatsresponse/message-upsert")]
     public IActionResult ReadResponse()
     {
         Console.WriteLine("Received JSON: " + HttpContext.Request.Body.ToString());
