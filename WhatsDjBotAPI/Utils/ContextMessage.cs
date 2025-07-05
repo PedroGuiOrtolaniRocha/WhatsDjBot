@@ -26,14 +26,13 @@
             UserId = messageKey["participant"].ToString();
             UserNumber = UserId.Substring(0, 13);
 
-            IsMentioned = messageData.ContainsKey("contextInfo") && messageData["contextInfo"].ToString().Contains(_bot.BotId);
+            IsMentioned = Message.Contains("@"+_bot.BotNumber);
 
             GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
             IsGroup = messageData["key"].ToString().Contains("@g.us");
 
-            IsResponse = messageData.ContainsKey("quotedMsg") &&
-                         messageData["quotedMsg"] != null &&
-                         messageData["contextInfo"].ToString().Contains(_bot.BotId);
+            Console.WriteLine(messageData["contextInfo"].ToString());
+            IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId);
         }
     }
 }
