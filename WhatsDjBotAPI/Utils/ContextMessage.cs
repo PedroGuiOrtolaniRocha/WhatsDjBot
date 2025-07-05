@@ -35,6 +35,7 @@
             {
                 IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
             }
+
             else
             {
                 IsResponse = false;
