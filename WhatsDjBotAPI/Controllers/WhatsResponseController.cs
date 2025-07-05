@@ -8,6 +8,10 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> ReadResponse()
     {
+        foreach (var header in HttpContext.Request.Headers)
+        {
+            Console.WriteLine($"{header.Key}: {header.Value}");
+        }
 
         string body = "";
         
