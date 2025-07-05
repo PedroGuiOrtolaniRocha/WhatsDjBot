@@ -17,10 +17,12 @@
             Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
 
             Dictionary<string, string> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["message"].ToString());
+            Dictionary<string, string> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(messageData["key"].ToString());
+
 
             Message = messageInfo["conversation"];
             UserName = messageData["pushName"].ToString();
-            UserId = messageData["sender"].ToString();
+            UserId = messageKey["participant"].ToString();
             UserNumber = UserId.Substring(0, 13);
 
             IsMentioned = messageData.ContainsKey("mentionedJidList") &&
