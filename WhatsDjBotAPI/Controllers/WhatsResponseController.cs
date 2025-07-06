@@ -66,10 +66,9 @@ public class WhatsResponseController : ControllerBase
 
         if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
         {
-            string outputMessage
-            await contextMessage.SendResponse();
+            string outputMessage = "Calma vida"
+            await contextMessage.SendResponse(outputMessage);
             Console.WriteLine("Mensagem enviada: " + outputMessage);
-
         }
 
         return Ok();
