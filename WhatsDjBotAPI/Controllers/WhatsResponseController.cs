@@ -76,6 +76,7 @@ public class WhatsResponseController : ControllerBase
         );
 
         HttpResponseMessage response = await client.SendAsync(request);
+        Console.WriteLine(response.ToString());
 
         return Ok();
     }
