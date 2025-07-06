@@ -36,7 +36,7 @@ public class WhatsResponseController : ControllerBase
                 reqDict["instance"].ToString(),
                 reqDict["sender"].ToString() ,
                 reqDict["server_url"].ToString(),
-                reqDict["api_key"].ToString()
+                reqDict["apikey"].ToString()
             );
         }
 
