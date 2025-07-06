@@ -50,14 +50,13 @@ namespace WhatsDjBotAPI.Utils
             UserNumber = UserId.Substring(0, 13);
         }
 
-        public async Task SendResponse()
+        public async Task SendResponse(string outputMessage)
         {
-            string responseMessage = "Teste e fds";
 
             var messagePayload = new
             {
                 number = GroupId ?? UserNumber,
-                text = responseMessage
+                text = outputMessage
             };
 
             HttpClient client = new();

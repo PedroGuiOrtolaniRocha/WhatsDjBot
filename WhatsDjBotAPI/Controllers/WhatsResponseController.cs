@@ -64,7 +64,11 @@ public class WhatsResponseController : ControllerBase
             Console.WriteLine("This is a private message.");
         }
 
-        await contextMessage.SendResponse();
+        if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
+        {
+            await contextMessage.SendResponse();
+
+        }
 
         return Ok();
     }
