@@ -70,7 +70,6 @@ namespace WhatsDjBotAPI.Utils
             );
 
             HttpResponseMessage response = await client.SendAsync(request);
-            Console.WriteLine(response.ToString());
 
             if (!response.IsSuccessStatusCode) // Se o status não for 2xx (Sucesso)
             {

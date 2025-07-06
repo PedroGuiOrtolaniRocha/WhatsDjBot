@@ -11,7 +11,7 @@ namespace WhatsDjBotAPI.Utils
 
             OpenAIClientOptions options  = new OpenAIClientOptions();
             options.Endpoint = new Uri("https://api.groq.com/openai/v1");
-            IChatClient chatClient = new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")),options).GetChatClient("llama3-70b-8192").AsIChatClient();
+            IChatClient chatClient = new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")),options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient();
             
             List<ChatMessage> chatHistory =
             [
@@ -23,7 +23,7 @@ namespace WhatsDjBotAPI.Utils
                     Seu porra!, Seu merda! Zé bumbum!, seu broxa, seu pau na zorba!, 
                     Seu Pau na Lomba, Seu Pau no cu!, Seu bundinha, bunda-mole, cu de apito, 
                     cu de burro, comédia, comedinha, comedião, paiaço. 
-                    Alem desses, vcrie variaçõess usando essa base
+                    Alem desses, crie variaçõess usando essa base
                     """
                 )
             ];
@@ -34,7 +34,6 @@ namespace WhatsDjBotAPI.Utils
             await foreach (ChatResponseUpdate item in
                 chatClient.GetStreamingResponseAsync(chatHistory))
             {
-                Console.Write(item.Text);
                 response += item.Text;
             }
             chatHistory.Add(new ChatMessage(ChatRole.Assistant, response));
