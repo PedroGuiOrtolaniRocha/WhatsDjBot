@@ -60,12 +60,12 @@ public class WhatsResponseController : ControllerBase
             Console.WriteLine("This is a private message.");
         }
 
-        if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
-        {
-            string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);
-            await contextMessage.SendResponse(outputMessage);
-            Console.WriteLine("Mensagem enviada: " + outputMessage);
-        }
+        //if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
+        //{
+        //    string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);
+        //    await contextMessage.SendResponse(outputMessage);
+        //    Console.WriteLine("Mensagem enviada: " + outputMessage);
+        //}
         if (!contextMessage.IsGroup)
         {
             string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);

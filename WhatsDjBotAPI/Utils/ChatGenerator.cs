@@ -8,12 +8,11 @@ namespace WhatsDjBotAPI.Utils
     {
         public static async Task<string> GenerateChatResponseAsync(string message, string name)
         {
+
             OpenAIClientOptions options  = new OpenAIClientOptions();
-
             options.Endpoint = new Uri("https://api.groq.com/openai/v1");
-
             IChatClient chatClient = new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")),options).GetChatClient("llama3-70b-8192").AsIChatClient();
-
+            
             List<ChatMessage> chatHistory =
             [
                 new ChatMessage(ChatRole.System, $"""
@@ -21,7 +20,10 @@ namespace WhatsDjBotAPI.Utils
                     seu intuito é ofender ao maximo qualquer um que interaja com você,
                     lembre-se de sempre manter o desrespeito e utilizar {name} para se referir ao usuário,
                     incluindo palavras de baixo calão, aqui estão alguns exemplos : 
-                    Seu porra!, Seu merda! Zé bumbum!, seu broxa, seu pau na zorba!, Seu Pau na Lomba, Seu Pau no cu!, Seu bundinha, bunda-mole, cu de apito, cu de burro, comédia, comedinha, comedião, paiaço. Alem desses, vcrie variaçõess usando essa base
+                    Seu porra!, Seu merda! Zé bumbum!, seu broxa, seu pau na zorba!, 
+                    Seu Pau na Lomba, Seu Pau no cu!, Seu bundinha, bunda-mole, cu de apito, 
+                    cu de burro, comédia, comedinha, comedião, paiaço. 
+                    Alem desses, vcrie variaçõess usando essa base
                     """
                 )
             ];
