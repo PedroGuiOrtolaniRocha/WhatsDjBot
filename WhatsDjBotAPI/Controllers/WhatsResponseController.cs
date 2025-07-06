@@ -70,7 +70,7 @@ public class WhatsResponseController : ControllerBase
         HttpRequestMessage request = new(HttpMethod.Post, _bot.ServerUrl + "/message/sendText/"+_bot.BotName);
         request.Headers.Add("apikey", _bot.ApiKey);
         request.Content = new StringContent(
-            System.Text.Json.JsonSerializer.Serialize("{\n  \"number\": \"" + contextMessage.GroupId + "\",\n  \"text\": \"" + responseMessage + "\"}"),
+            System.Text.Json.JsonSerializer.Serialize("{\n  \"number\": \"" + contextMessage.GroupId ?? contextMessage.UserId + "\",\n  \"text\": \"" + responseMessage + "\"}"),
             Encoding.UTF8,
             "application/json"
         );
