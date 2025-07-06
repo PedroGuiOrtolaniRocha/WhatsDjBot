@@ -66,6 +66,12 @@ public class WhatsResponseController : ControllerBase
             await contextMessage.SendResponse(outputMessage);
             Console.WriteLine("Mensagem enviada: " + outputMessage);
         }
+        if (!contextMessage.IsGroup)
+        {
+            string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);
+            await contextMessage.SendResponse(outputMessage);
+            Console.WriteLine("Mensagem enviada: " + outputMessage);
+        }
 
         return Ok();
     }
