@@ -25,10 +25,6 @@ public class WhatsResponseController : ControllerBase
         }
 
         Dictionary<string, object> reqDict = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(body);
-        foreach (var item in reqDict)
-        {
-            Console.WriteLine($"Key: {item.Key}\nValue: {item.Value}\n\n");
-        }
 
         if (_bot.BotId == null)
         {
@@ -66,7 +62,7 @@ public class WhatsResponseController : ControllerBase
 
         if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
         {
-            string outputMessage = "Calma vida"
+            string outputMessage = "Calma vida";
             await contextMessage.SendResponse(outputMessage);
             Console.WriteLine("Mensagem enviada: " + outputMessage);
         }
