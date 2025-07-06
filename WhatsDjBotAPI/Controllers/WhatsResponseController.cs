@@ -64,32 +64,7 @@ public class WhatsResponseController : ControllerBase
             Console.WriteLine("This is a private message.");
         }
 
-        string responseMessage = "Teste e fds";
-
-        var messagePayload = new
-        {
-            number = contextMessage.GroupId ?? contextMessage.UserNumber,
-            text = responseMessage
-        };
-
-        HttpClient client = new();
-        
-        HttpRequestMessage request = new(HttpMethod.Post, _bot.ServerUrl + "/message/sendText/"+_bot.BotName);
-        request.Headers.Add("apikey", _bot.ApiKey);
-        request.Content = new StringContent(
-            System.Text.Json.JsonSerializer.Serialize(messagePayload),
-            Encoding.UTF8,
-            "application/json"
-        );
-
-        HttpResponseMessage response = await client.SendAsync(request);
-        Console.WriteLine(response.ToString());
-
-        if (!response.IsSuccessStatusCode) // Se o status não for 2xx (Sucesso)
-        {
-            string errorContent = await response.Content.ReadAsStringAsync(); // <-- LÊ O CONTEÚDO DO ERRO
-            Console.WriteLine($"Erro HTTP {response.StatusCode}: {errorContent}");
-        }
+        await contextMessage.SendResponse();
 
         return Ok();
     }
