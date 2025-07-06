@@ -12,6 +12,7 @@ namespace WhatsDjBotAPI.Utils
         public bool IsMentioned { get; private set; }
         public bool IsResponse { get; private set; }
         public bool IsGroup { get; private set; }
+        public bool FromBot { get; private set; }
         private readonly BotSettings _bot;
 
         public ContextMessage(object messageDataObj, BotSettings bot)
@@ -27,7 +28,16 @@ namespace WhatsDjBotAPI.Utils
             Message = messageInfo["conversation"].ToString();
             UserName = messageData["pushName"].ToString();
 
-            if (IsGroup)
+            if (messageKey["fromMe"].ToString() == "true")
+            { 
+                UserName = _bot.BotName;
+                UserId = _bot.BotId;
+                UserNumber = _bot.BotNumber;
+                IsMentioned = false;
+                IsResponse = false;
+                FromBot = true;
+            }
+            else if(IsGroup)
             {
                 IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
                 UserId = messageKey["participant"].ToString();
