@@ -71,7 +71,7 @@ public class WhatsResponseController : ControllerBase
         HttpRequestMessage request = new(HttpMethod.Post, _bot.ServerUrl + "/message/sendText/"+_bot.BotName);
         request.Headers.Add("apikey", _bot.ApiKey);
         request.Content = new StringContent(
-            "{\n  \"number\": \"" + contextMessage.GroupId ?? contextMessage.UserNumber + "\",\n  \"text\": \"" + responseMessage + "\"}"),
+            "{\n  \"number\": \"" + contextMessage.GroupId ?? contextMessage.UserNumber + "\",\n  \"text\": \"" + responseMessage + "\"}"
         );
 
         HttpResponseMessage response = await client.SendAsync(request);
