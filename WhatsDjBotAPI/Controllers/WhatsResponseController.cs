@@ -79,6 +79,12 @@ public class WhatsResponseController : ControllerBase
         HttpResponseMessage response = await client.SendAsync(request);
         Console.WriteLine(response.ToString());
 
+        if (!response.IsSuccessStatusCode) // Se o status não for 2xx (Sucesso)
+        {
+            string errorContent = await response.Content.ReadAsStringAsync(); // <-- LÊ O CONTEÚDO DO ERRO
+            Console.WriteLine($"Erro HTTP {response.StatusCode}: {errorContent}");
+        }
+
         return Ok();
     }
 
