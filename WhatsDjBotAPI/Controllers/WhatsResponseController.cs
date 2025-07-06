@@ -35,8 +35,8 @@ public class WhatsResponseController : ControllerBase
             _bot.BotSet(
                 reqDict["instance"].ToString(),
                 reqDict["sender"].ToString() ,
-                reqDict["serverUrl"].ToString(),
-                reqDict["apiKey"].ToString()
+                reqDict["server_url"].ToString(),
+                reqDict["api_key"].ToString()
             );
         }
 
