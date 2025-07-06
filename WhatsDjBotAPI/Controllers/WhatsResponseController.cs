@@ -34,13 +34,17 @@ public class WhatsResponseController : ControllerBase
         {
             _bot.BotSet(
                 reqDict["instance"].ToString(),
-                reqDict["sender"].ToString() 
+                reqDict["sender"].ToString() ,
+                reqDict["serverUrl"].ToString(),
+                reqDict["apiKey"].ToString()
             );
         }
 
         Console.WriteLine($"Bot Name: {_bot.BotName}");
         Console.WriteLine($"Bot ID: {_bot.BotId}");
         Console.WriteLine($"Bot Number: {_bot.BotNumber}");
+        Console.WriteLine($"Server URL: {_bot.ServerUrl}");
+        Console.WriteLine($"API Key: {_bot.ApiKey}");
 
         ContextMessage contextMessage = new(reqDict["data"], _bot);
 
@@ -59,6 +63,19 @@ public class WhatsResponseController : ControllerBase
         {
             Console.WriteLine("This is a private message.");
         }
+
+        string responseMessage = "Teste e fds";
+
+        HttpClient client = new();
+        HttpRequestMessage request = new(HttpMethod.Post, _bot.ServerUrl + "/"+_bot.BotName);
+        request.Headers.Add("Authorization", _bot.ApiKey);
+        request.Content = new StringContent(
+            System.Text.Json.JsonSerializer.Serialize("{\n  \"number\": \"" + contextMessage.GroupId + "\",\n  \"text\": \"" + responseMessage + "\"}"),
+            Encoding.UTF8,
+            "application/json"
+        );
+
+        HttpResponseMessage response = await client.SendAsync(request);
 
         return Ok();
     }
