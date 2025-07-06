@@ -62,7 +62,7 @@ public class WhatsResponseController : ControllerBase
 
         if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
         {
-            string outputMessage = "Calma vida";
+            string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);
             await contextMessage.SendResponse(outputMessage);
             Console.WriteLine("Mensagem enviada: " + outputMessage);
         }
