@@ -15,7 +15,7 @@ public class WhatsResponseController : ControllerBase
 
         string body = "";
 
-        Console.WriteLine(HttpContext.Request.Body.CanSeek);
+        Console.WriteLine("\u001b[32m  _   _                   __  __                                            \r\n | \\ | |                 |  \\/  |                                           \r\n |  \\| | _____   ____ _  | \\  / | ___ _ __  ___  __ _  __ _  ___ _ __ ___   \r\n | . ` |/ _ \\ \\ / / _` | | |\\/| |/ _ \\ '_ \\/ __|/ _` |/ _` |/ _ \\ '_ ` _ \\  \r\n | |\\  | (_) \\ V / (_| | | |  | |  __/ | | \\__ \\ (_| | (_| |  __/ | | | | | \r\n |_| \\_|\\___/ \\_/ \\__,_| |_|  |_|\\___|_| |_|___/\\__,_|\\__, |\\___|_| |_| |_| \r\n                                                       __/ |                \r\n                                                      |___/                 \u001b[0m");
 
         if (HttpContext.Request.Body.CanSeek)
         {
