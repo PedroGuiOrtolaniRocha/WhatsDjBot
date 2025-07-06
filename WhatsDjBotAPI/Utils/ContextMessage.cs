@@ -18,18 +18,14 @@ namespace WhatsDjBotAPI.Utils
         {
             _bot = bot;
 
-            Console.WriteLine("ContextMessage Constructor Called");
             Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
             Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
             Dictionary<string, object> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["message"].ToString());
 
 
-            Console.WriteLine("Message Data, Info and Key Deserialized");
             IsGroup = messageData["key"].ToString().Contains("@g.us");
-
             Message = messageInfo["conversation"].ToString();
             UserName = messageData["pushName"].ToString();
-            Console.WriteLine($"variaveis setadas");
 
             if (IsGroup)
             {

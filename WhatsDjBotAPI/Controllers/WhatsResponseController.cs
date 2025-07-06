@@ -35,42 +35,45 @@ public class WhatsResponseController : ControllerBase
                 reqDict["apikey"].ToString()
             );
         }
-
+        Console.WriteLine("Informações do bot:");
         Console.WriteLine($"Bot Name: {_bot.BotName}");
         Console.WriteLine($"Bot ID: {_bot.BotId}");
         Console.WriteLine($"Bot Number: {_bot.BotNumber}");
         Console.WriteLine($"Server URL: {_bot.ServerUrl}");
-        Console.WriteLine($"API Key: {_bot.ApiKey}");
+        Console.WriteLine($"API Key: {_bot.ApiKey}\n\n");
 
         ContextMessage contextMessage = new(reqDict["data"], _bot);
 
-        Console.WriteLine($"Message: {contextMessage.Message}");
+        Console.WriteLine("Informações do usuário:");
         Console.WriteLine($"User Name: {contextMessage.UserName}");
         Console.WriteLine($"User ID: {contextMessage.UserId}");
-        Console.WriteLine($"User Number: {contextMessage.UserNumber}");
+        Console.WriteLine($"User Number: {contextMessage.UserNumber}\n\n");
+
+        Console.WriteLine("Informações da mensagem:");
+        Console.WriteLine($"Message: {contextMessage.Message}");
         Console.WriteLine($"Is Mentioned: {contextMessage.IsMentioned}");
         Console.WriteLine($"Is Response: {contextMessage.IsResponse}");
-        Console.WriteLine($"Is Group: {contextMessage.IsGroup}");
+
         if (contextMessage.IsGroup)
         {
-            Console.WriteLine($"Group ID: {contextMessage.GroupId}");
+            Console.WriteLine($"Group ID: {contextMessage.GroupId}\n\n");
         }
         else
         {
-            Console.WriteLine("This is a private message.");
+            Console.WriteLine("This is a private message.\n\n");
         }
 
-        //if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
-        //{
-        //    string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);
-        //    await contextMessage.SendResponse(outputMessage);
-        //    Console.WriteLine("Mensagem enviada: " + outputMessage);
-        //}
+        if(contextMessage.IsGroup && (contextMessage.IsResponse || contextMessage.IsMentioned))
+        {
+            string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);
+            await contextMessage.SendResponse(outputMessage);
+            Console.WriteLine("Mensagem enviada: " + outputMessage + "\n\n");
+        }
         if (!contextMessage.IsGroup)
         {
             string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName);
             await contextMessage.SendResponse(outputMessage);
-            Console.WriteLine("Mensagem enviada: " + outputMessage);
+            Console.WriteLine("Mensagem enviada: " + outputMessage + "\n\n");
         }
 
         return Ok();

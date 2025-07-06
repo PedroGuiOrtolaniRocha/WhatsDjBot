@@ -1,4 +1,4 @@
-
+﻿
 using Microsoft.EntityFrameworkCore;
 using WhatsDjBotAPI.Repositorys;
 using Microsoft.Extensions.AI;
@@ -46,7 +46,7 @@ namespace WhatsDjBotAPI
 
             app.Run();
             Console.Clear();
-            Console.WriteLine("\n\nAPI Online\n\n");
+            Console.WriteLine("\x1b[32m\n\n ▄▄▄       ██▓███   ██▓       ▒█████   ███▄    █  ██▓     ██▓ ███▄    █ ▓█████ \r\n▒████▄    ▓██░  ██▒▓██▒      ▒██▒  ██▒ ██ ▀█   █ ▓██▒    ▓██▒ ██ ▀█   █ ▓█   ▀ \r\n▒██  ▀█▄  ▓██░ ██▓▒▒██▒      ▒██░  ██▒▓██  ▀█ ██▒▒██░    ▒██▒▓██  ▀█ ██▒▒███   \r\n░██▄▄▄▄██ ▒██▄█▓▒ ▒░██░      ▒██   ██░▓██▒  ▐▌██▒▒██░    ░██░▓██▒  ▐▌██▒▒▓█  ▄ \r\n ▓█   ▓██▒▒██▒ ░  ░░██░      ░ ████▓▒░▒██░   ▓██░░██████▒░██░▒██░   ▓██░░▒████▒\r\n ▒▒   ▓▒█░▒▓▒░ ░  ░░▓        ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ ░ ▒░▓  ░░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░\r\n  ▒   ▒▒ ░░▒ ░      ▒ ░        ░ ▒ ▒░ ░ ░░   ░ ▒░░ ░ ▒  ░ ▒ ░░ ░░   ░ ▒░ ░ ░  ░\r\n  ░   ▒   ░░        ▒ ░      ░ ░ ░ ▒     ░   ░ ░   ░ ░    ▒ ░   ░   ░ ░    ░   \r\n      ░  ░          ░            ░ ░           ░     ░  ░ ░           ░    ░  ░\r\n                                                                               \n\n\x1b[0m");
         }
     }
 }
