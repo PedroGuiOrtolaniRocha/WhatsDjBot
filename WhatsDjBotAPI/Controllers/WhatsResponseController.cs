@@ -68,7 +68,7 @@ public class WhatsResponseController : ControllerBase
 
         HttpClient client = new();
         HttpRequestMessage request = new(HttpMethod.Post, _bot.ServerUrl + "/"+_bot.BotName);
-        request.Headers.Add("Authorization", _bot.ApiKey);
+        request.Headers.Add("apikey", _bot.ApiKey);
         request.Content = new StringContent(
             System.Text.Json.JsonSerializer.Serialize("{\n  \"number\": \"" + contextMessage.GroupId + "\",\n  \"text\": \"" + responseMessage + "\"}"),
             Encoding.UTF8,
