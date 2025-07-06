@@ -67,7 +67,7 @@ public class WhatsResponseController : ControllerBase
         string responseMessage = "Teste e fds";
 
         HttpClient client = new();
-        HttpRequestMessage request = new(HttpMethod.Post, _bot.ServerUrl + "/"+_bot.BotName);
+        HttpRequestMessage request = new(HttpMethod.Post, _bot.ServerUrl + "/message/sendText/"+_bot.BotName);
         request.Headers.Add("apikey", _bot.ApiKey);
         request.Content = new StringContent(
             System.Text.Json.JsonSerializer.Serialize("{\n  \"number\": \"" + contextMessage.GroupId + "\",\n  \"text\": \"" + responseMessage + "\"}"),
