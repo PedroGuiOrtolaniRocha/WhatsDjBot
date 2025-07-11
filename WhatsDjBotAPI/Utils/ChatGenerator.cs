@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.AI;
 using OpenAI;
 using System.ClientModel;
+using static WhatsDjBotAPI.Utils.MusicDataHandler;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WhatsDjBotAPI.Utils
@@ -19,7 +20,7 @@ namespace WhatsDjBotAPI.Utils
             List<OpenAI.Chat.ChatTool> chatTools = new List<OpenAI.Chat.ChatTool>
             {
                 OpenAI.Chat.ChatTool.CreateFunctionTool(
-                    functionName: "MusicDataHandler.GetMusicsByArtistLastFm", // Nome único para a ferramenta
+                    functionName: "GetMusicsByArtistLastFm", // Nome único para a ferramenta
                     functionDescription: """
                          A ferramenta é usada para buscar as músicas mais populares ou "top tracks" de um artista específico no Last.fm.
                          Use esta ferramenta sempre que o usuário perguntar sobre:
