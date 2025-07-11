@@ -20,24 +20,33 @@ namespace WhatsDjBotAPI.Utils
             {
                 OpenAI.Chat.ChatTool.CreateFunctionTool(
                     functionName: "GetMusicsByArtistLastFm", // Nome único para a ferramenta
-                    functionDescription: "Fetches the top tracks for a given artist from Last.fm. Use this tool when the user asks for songs, top tracks, or music by a specific artist. The 'qtnd' parameter specifies how many songs to retrieve (defaulting to 5 if not specified by the user).", // Descrição para o modelo
+                    functionDescription: """
+                         A ferramenta é usada para buscar as músicas mais populares ou "top tracks" de um artista específico no Last.fm.
+                         Use esta ferramenta sempre que o usuário perguntar sobre:
+                         - Músicas de um artista (ex: "músicas do Iron Maiden")
+                         - Top músicas / faixas de um artista (ex: "quais as top músicas do Queen")
+                         - Discoteca / repertório de um artista (ex: "me mostre o que o Led Zeppelin já fez")
+                         - Para encontrar faixas ou canções por nome de artista.
+                         O parâmetro 'qtnd' (quantidade) pode ser usado para especificar o número de músicas a serem retornadas,
+                         com um padrão de 5 se não for especificado pelo usuário.
+                         """,
                     functionParameters: BinaryData.FromString("""
-                            {
-                                "type": "object",
-                                "properties": {
-                                    "artistName": {
-                                        "type": "string",
-                                        "description": "The name of the artist to search for."
-                                    },
-                                    "qtnd": {
-                                        "type": "integer",
-                                        "description": "The number of top tracks to retrieve (e.g., 5, 10). Defaults to 5 if not provided by the user.",
-                                        "default": 5
-                                    }
-                                },
-                                "required": ["artistName"]
-                            }
-                            """),
+                         {
+                             "type": "object",
+                             "properties": {
+                                 "artistName": {
+                                     "type": "string",
+                                     "description": "The name of the artist to search for."
+                                 },
+                                 "qtnd": {
+                                     "type": "integer",
+                                     "description": "The number of top tracks to retrieve (e.g., 5, 10). Defaults to 5 if not provided by the user.",
+                                     "default": 5
+                                 }
+                             },
+                             "required": ["artistName"]
+                         }
+                         """),
                         functionSchemaIsStrict: false
                     )
                
