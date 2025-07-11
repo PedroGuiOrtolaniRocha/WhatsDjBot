@@ -42,7 +42,7 @@ namespace WhatsDjBotAPI.Utils
                  - Discoteca / repertório de um artista (ex: "me mostre o que o Led Zeppelin já fez")
                  - Para encontrar faixas ou canções por nome de artista.
                  O parâmetro 'qtnd' (quantidade) pode ser usado para especificar o número de músicas a serem retornadas,
-                 com um padrão de 5 se não for especificado pelo usuário.
+                 com um padrão de 5 se não for especificado pelo usuário, mas se o usuário pedir mais de 10 negue o pedido e traga 10.
 
                  Sempre que utilizar essa ferramenta, lembre-se de iniciar a resposta com a url do artista e adicionar na resposta o link de cada música.
                  """)],
