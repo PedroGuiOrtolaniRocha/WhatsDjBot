@@ -43,6 +43,8 @@ namespace WhatsDjBotAPI.Utils
                  - Para encontrar faixas ou canções por nome de artista.
                  O parâmetro 'qtnd' (quantidade) pode ser usado para especificar o número de músicas a serem retornadas,
                  com um padrão de 5 se não for especificado pelo usuário.
+
+                 Sempre que utilizar essa ferramenta, lembre-se de iniciar a resposta com a url do artista e adicionar na resposta o link de cada música.
                  """)],
             };
 
