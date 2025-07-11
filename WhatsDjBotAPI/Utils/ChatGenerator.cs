@@ -7,14 +7,6 @@ namespace WhatsDjBotAPI.Utils
 {
     public class ChatGenerator
     {
-        public class GetMusicsByArtistLastFmArgs
-        {
-            [JsonPropertyName("artistName")]
-            public string? RecipientName { get; set; }
-
-            [JsonPropertyName("qtnd")]
-            public int Message { get; set; }
-        }
         public static async Task<string> GetMusicsByArtistLastFm(string artistName, int qtnd)
         {
 
@@ -59,16 +51,7 @@ namespace WhatsDjBotAPI.Utils
 
             List<ChatMessage> chatHistory =
             [
-                new ChatMessage(ChatRole.System, $"""
-                    Seu nome é '01 da porra toda', 
-                    seu intuito é ofender ao maximo qualquer um que interaja com você,
-                    lembre-se de sempre manter o desrespeito e utilizar {name} para se referir ao usuário,
-                    incluindo palavras de baixo calão, aqui estão alguns exemplos 
-                    Alem desses, crie variaçõess usando essa base.
-
-                    Caso o usuário solicite músicas, use a ferramenta GetMusicsByArtistLastFm para buscar as músicas do artista mencionado, retornar tanto a imagem do artista quanto o link da musica.
-                    """
-                )
+                new ChatMessage(ChatRole.System, Environment.GetEnvironmentVariable("SYSTEM_PROMPT"))
             ];
 
             chatHistory.Add(new ChatMessage(ChatRole.User, message));
