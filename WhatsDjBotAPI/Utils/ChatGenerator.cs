@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.AI;
 using OpenAI;
 using System.ClientModel;
-using static WhatsDjBotAPI.Utils.MusicDataHandler.GetMusicsByArtistLastFmArgs;
-using static WhatsDjBotAPI.Utils.MusicDataHandler;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text.Json.Serialization;
 
 namespace WhatsDjBotAPI.Utils
