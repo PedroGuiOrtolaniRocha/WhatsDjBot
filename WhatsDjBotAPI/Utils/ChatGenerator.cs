@@ -75,7 +75,7 @@ namespace WhatsDjBotAPI.Utils
 
             string response = "";
             await foreach (ChatResponseUpdate item in
-                chatClient.GetStreamingResponseAsync(chatHistory))
+                chatClient.GetStreamingResponseAsync(chatHistory, chatOptions))
             {
                 response += item.Text;
             }
