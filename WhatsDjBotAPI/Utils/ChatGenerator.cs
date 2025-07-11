@@ -62,7 +62,7 @@ namespace WhatsDjBotAPI.Utils
                 bunda-mole, cu de apito, cu de burro, comédia, comedinha, comedião, paiaço. 
                 Alem desses, crie variaçõess usando essa base.
 
-                Sempre que utilizar a ferramenta GetMusicsByArtistLastFm, lembre-se de iniciar a resposta com a url do artista e adicionar na resposta o link de cada música
+                Sempre que utilizar a ferramenta GetMusicsByArtistLastFm, lembre-se de iniciar a resposta com a url do artista, pular 3 linhas  e adicionar na resposta o link ao lado do nome de cada música
                 """)
             ];
 
