@@ -11,6 +11,7 @@ namespace WhatsDjBotAPI
     {
         public static void Main()
         {
+
             var builder = WebApplication.CreateBuilder();
 
             // Add services to the container.
