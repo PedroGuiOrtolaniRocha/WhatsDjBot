@@ -1,33 +1,12 @@
 ﻿using Microsoft.Extensions.AI;
 using OpenAI;
 using System.ClientModel;
-using System.Text.Json.Serialization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WhatsDjBotAPI.Utils
 {
     public class ChatGenerator
     {
-        private class GetMusicsByArtistLastFmArgs
-        {
-            [JsonPropertyName("artistName")]
-            public string? RecipientName { get; set; }
-
-            [JsonPropertyName("qtnd")]
-            public int Message { get; set; }
-        }
-        public static async Task<string> GetMusicsByArtistLastFm(string artistName, int qtnd)
-        {
-
-            string apiKey = Environment.GetEnvironmentVariable("LASTFM_APIKEY") ?? throw new Exception("LASTFM_APIKEY environment variable is not set.");
-
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist={artistName}&api_key={apiKey}&limit={qtnd}&format=json");
-            HttpClient client = new HttpClient();
-
-            HttpResponseMessage response = await client.SendAsync(request);
-
-            return await response.Content.ReadAsStringAsync();
-        }
         public static async Task<string> GenerateChatResponseAsync(string message, string name)
         {
 
@@ -40,7 +19,7 @@ namespace WhatsDjBotAPI.Utils
             List<OpenAI.Chat.ChatTool> chatTools = new List<OpenAI.Chat.ChatTool>
             {
                 OpenAI.Chat.ChatTool.CreateFunctionTool(
-                    functionName: "GetMusicsByArtistLastFm", // Nome único para a ferramenta
+                    functionName: "MusicDataHandler.GetMusicsByArtistLastFm", // Nome único para a ferramenta
                     functionDescription: """
                          A ferramenta é usada para buscar as músicas mais populares ou "top tracks" de um artista específico no Last.fm.
                          Use esta ferramenta sempre que o usuário perguntar sobre:
