@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.AI;
 using OpenAI;
 using System.ClientModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WhatsDjBotAPI.Utils
 {
@@ -12,7 +13,36 @@ namespace WhatsDjBotAPI.Utils
             OpenAIClientOptions options  = new OpenAIClientOptions();
             options.Endpoint = new Uri("https://api.groq.com/openai/v1");
             IChatClient chatClient = new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")),options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient();
-            
+
+
+
+            List<OpenAI.Chat.ChatTool> chatTools = new List<OpenAI.Chat.ChatTool>
+            {
+                OpenAI.Chat.ChatTool.CreateFunctionTool(
+                    functionName: "GetMusicsByArtistLastFm", // Nome único para a ferramenta
+                    functionDescription: "Fetches the top tracks for a given artist from Last.fm. Use this tool when the user asks for songs, top tracks, or music by a specific artist. The 'qtnd' parameter specifies how many songs to retrieve (defaulting to 5 if not specified by the user).", // Descrição para o modelo
+                    functionParameters: BinaryData.FromString("""
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "artistName": {
+                                        "type": "string",
+                                        "description": "The name of the artist to search for."
+                                    },
+                                    "qtnd": {
+                                        "type": "integer",
+                                        "description": "The number of top tracks to retrieve (e.g., 5, 10). Defaults to 5 if not provided by the user.",
+                                        "default": 5
+                                    }
+                                },
+                                "required": ["artistName"]
+                            }
+                            """),
+                        functionSchemaIsStrict: false
+                    )
+               
+            };
+
             List<ChatMessage> chatHistory =
             [
                 new ChatMessage(ChatRole.System, $"""

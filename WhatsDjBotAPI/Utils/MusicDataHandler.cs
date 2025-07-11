@@ -1,7 +1,17 @@
-﻿namespace WhatsDjBotAPI.Utils
+﻿using System.Text.Json.Serialization;
+
+namespace WhatsDjBotAPI.Utils
 {
     public class MusicDataHandler
     {
+        private class GetMusicsByArtistLastFmArgs
+        {
+            [JsonPropertyName("artistName")]
+            public string? RecipientName { get; set; }
+
+            [JsonPropertyName("qtnd")]
+            public int Message { get; set; }
+        }
         public static async Task<string> GetMusicsByArtistLastFm(string artistName, int qtnd)
         {
 
