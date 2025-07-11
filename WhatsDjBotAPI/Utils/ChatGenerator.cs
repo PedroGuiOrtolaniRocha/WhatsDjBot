@@ -15,8 +15,6 @@ namespace WhatsDjBotAPI.Utils
             options.Endpoint = new Uri("https://api.groq.com/openai/v1");
             IChatClient chatClient = new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")),options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient();
 
-
-
             List<OpenAI.Chat.ChatTool> chatTools = new List<OpenAI.Chat.ChatTool>
             {
                 OpenAI.Chat.ChatTool.CreateFunctionTool(
