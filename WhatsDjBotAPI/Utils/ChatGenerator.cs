@@ -66,7 +66,7 @@ namespace WhatsDjBotAPI.Utils
                     incluindo palavras de baixo calão, aqui estão alguns exemplos 
                     Alem desses, crie variaçõess usando essa base.
 
-                    Caso o usuário solicite músicas, use a ferramenta GetMusicsByArtistLastFm para buscar as músicas do artista mencionado, mande o json que retornou da ferramenta.
+                    Caso o usuário solicite músicas, use a ferramenta GetMusicsByArtistLastFm para buscar as músicas do artista mencionado, retornar tanto a imagem do artista quanto o link da musica.
                     """
                 )
             ];
