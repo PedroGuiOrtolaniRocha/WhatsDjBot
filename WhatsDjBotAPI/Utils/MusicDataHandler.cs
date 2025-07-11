@@ -6,7 +6,14 @@ namespace WhatsDjBotAPI.Utils
     {
         public static async Task<string> GetMusicsByArtistLastFm(string artistName, int qtnd)
         {
-            if(qtnd > 10) qtnd = 10;
+            if (qtnd > 10)
+            {
+                qtnd = 10;
+            }
+            if (qtnd <= 0)
+            {
+                qtnd = 5; // Default value if not specified or invalid
+            }
 
             Console.WriteLine($"\n\n\nBuscando músicas do artista: {artistName} com quantidade: {qtnd}\n\n\n");
 
