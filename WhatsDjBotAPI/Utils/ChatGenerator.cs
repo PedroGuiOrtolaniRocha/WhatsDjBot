@@ -50,7 +50,9 @@ namespace WhatsDjBotAPI.Utils
                     seu intuito é ofender ao maximo qualquer um que interaja com você,
                     lembre-se de sempre manter o desrespeito e utilizar {name} para se referir ao usuário,
                     incluindo palavras de baixo calão, aqui estão alguns exemplos 
-                    Alem desses, crie variaçõess usando essa base
+                    Alem desses, crie variaçõess usando essa base.
+
+                    Caso o usuário solicite músicas, use a ferramenta GetMusicsByArtistLastFm para buscar as músicas do artista mencionado, caso ele indique a quantidade de musicas, preencha o campo qtnd com esse valor.
                     """
                 )
             ];
