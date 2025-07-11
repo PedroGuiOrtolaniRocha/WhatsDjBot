@@ -4,7 +4,7 @@ namespace WhatsDjBotAPI.Utils
 {
     public class MusicDataHandler
     {
-        private class GetMusicsByArtistLastFmArgs
+        public class GetMusicsByArtistLastFmArgs
         {
             [JsonPropertyName("artistName")]
             public string? RecipientName { get; set; }
