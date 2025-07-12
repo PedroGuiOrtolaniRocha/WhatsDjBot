@@ -25,7 +25,7 @@ namespace WhatsDjBotAPI.Utils
                  A ferramenta é usada para buscar as músicas mais populares ou "top tracks" de um artista específico no Last.fm.
                  Use esta ferramenta sempre que o usuário perguntar sobre:
                  - Músicas de um artista (ex: "músicas do Iron Maiden")
-                 - Top músicas / faixas de um artista (ex: "quais as top músicas do Queen")
+                 - Top músicas / faixas de um artista (ex: "quais as top músicas do Queen", "as melhores do emicida")
                  - Discoteca / repertório de um artista (ex: "me mostre o que o Led Zeppelin já fez")
                  - Para encontrar faixas ou canções por nome de artista.
                  O parâmetro 'qtnd' (quantidade) pode ser usado para especificar o número de músicas a serem retornadas,
