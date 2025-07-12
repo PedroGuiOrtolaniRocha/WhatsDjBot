@@ -35,7 +35,7 @@ namespace WhatsDjBotAPI.Utils
                      com um padrão de 5 se não for especificado pelo usuário, mas se o usuário definir uma quantidade maior que 10 negue o pedido e traga 10 músicas.
                      """),
                     
-                    AIFunctionFactory.Create(async (string platform) =>
+                    AIFunctionFactory.Create(async (string? platform) =>
                     {
                         return await gmHandler.GetRandomGroupMusic(platform, groupId);
                     },
@@ -44,7 +44,7 @@ namespace WhatsDjBotAPI.Utils
                     A ferramenta é usada para buscar uma música aleatória de um grupo específico em uma plataforma específica.
                     Use esta ferramenta sempre que o usuário perguntar por uma música aleatória de um grupo ou solicitar uma música de um grupo específico.
                     O parâmetro 'platform' pode ser usado para especificar a plataforma (ex: "Youtube", "Spotify", "Deezer", "Soundcloud").
-                    Se não for especificado, a ferramenta retornará uma música aleatória de qualquer plataforma disponível.
+                    Se não for especificado o parâmetro não deve ser preenchido, a ferramenta retornará uma música aleatória de qualquer plataforma disponível.
                     """)
                 ]
             };
