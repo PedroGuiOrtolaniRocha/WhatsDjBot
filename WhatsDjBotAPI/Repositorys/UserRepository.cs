@@ -18,7 +18,7 @@ namespace WhatsDjBotAPI.Repositorys
 
         public async Task<User>? GetUserByPhone(string phone)
         {
-            return await _context.Users.FirstOrDefaultAsync<User>(x => x.Phone == phone );
+            return await _context.Users.FirstOrDefaultAsync<User>(x => x.Phone == phone);
         }
 
         public async Task<int> InsertUser(User user)

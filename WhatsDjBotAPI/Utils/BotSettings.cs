@@ -9,14 +9,14 @@
         public string? ApiKey { get; private set; }
 
 
-        public BotSettings() 
+        public BotSettings()
         {
             BotId = null;
             BotName = null;
             BotNumber = null;
         }
-        public void BotSet(string botName, string botId, string serverUrl, string apiKey) 
-        { 
+        public void BotSet(string botName, string botId, string serverUrl, string apiKey)
+        {
             BotName = botName;
             BotId = botId;
             BotNumber = botId.Substring(0, 13);

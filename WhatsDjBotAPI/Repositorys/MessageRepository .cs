@@ -1,12 +1,10 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using WhatsDjBotAPI.Models;
+﻿using WhatsDjBotAPI.Models;
 namespace WhatsDjBotAPI.Repositorys
 {
     public class MessageRepository : IMessageRepository
     {
         DbEntity _context;
-        public MessageRepository(DbEntity context) 
+        public MessageRepository(DbEntity context)
         {
             _context = context;
         }

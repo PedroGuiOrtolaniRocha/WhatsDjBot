@@ -2,7 +2,6 @@
 using OpenAI;
 using System.ClientModel;
 using static WhatsDjBotAPI.Utils.MusicDataHandler;
-using System.Text.Json.Serialization;
 
 namespace WhatsDjBotAPI.Utils
 {
@@ -12,12 +11,12 @@ namespace WhatsDjBotAPI.Utils
         public static async Task<string> GenerateChatResponseAsync(string message, string name)
         {
 
-            OpenAIClientOptions options  = new OpenAIClientOptions();
+            OpenAIClientOptions options = new OpenAIClientOptions();
             options.Endpoint = new Uri("https://api.groq.com/openai/v1");
 
-            ChatOptions chatOptions = new ChatOptions 
-            { 
-                Tools = [AIFunctionFactory.Create(async (string artistName, int qtnd) => 
+            ChatOptions chatOptions = new ChatOptions
+            {
+                Tools = [AIFunctionFactory.Create(async (string artistName, int qtnd) =>
                 {
                     return await GetMusicsByArtistLastFm(artistName, qtnd);
                 },
@@ -34,7 +33,7 @@ namespace WhatsDjBotAPI.Utils
                  """)],
             };
 
-            IChatClient chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")),options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
+            IChatClient chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
 
 
             List<ChatMessage> chatHistory =

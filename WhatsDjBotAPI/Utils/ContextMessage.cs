@@ -29,7 +29,7 @@ namespace WhatsDjBotAPI.Utils
             UserName = messageData["pushName"].ToString();
 
             if (messageKey["fromMe"].ToString() == "true")
-            { 
+            {
                 UserName = _bot.BotName;
                 UserId = _bot.BotId;
                 UserNumber = _bot.BotNumber;
@@ -37,9 +37,17 @@ namespace WhatsDjBotAPI.Utils
                 IsResponse = false;
                 FromBot = true;
             }
-            else if(IsGroup)
+            else if (IsGroup)
             {
-                IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
+                if (messageData.ContainsKey("contextInfo"))
+                {
+                    IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
+                }
+                else
+                {
+                    IsResponse = false;
+                }
+
                 UserId = messageKey["participant"].ToString();
                 GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
                 IsMentioned = Message.Contains("@" + _bot.BotNumber);

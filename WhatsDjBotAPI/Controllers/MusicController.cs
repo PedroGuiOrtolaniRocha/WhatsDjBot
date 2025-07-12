@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using WhatsDjBotAPI.Models;
 using WhatsDjBotAPI.Repositorys;
 using WhatsDjBotAPI.Utils;
@@ -34,13 +33,13 @@ public class MusicController : ControllerBase
         MusicResponse? musicResponse;
 
 
-        if (platform == null || !_platforms.Contains<string>(platform)) 
+        if (platform == null || !_platforms.Contains<string>(platform))
         {
             musicId = await _musicRepository.GetRandomMusicId(groupId);
-            if(musicId == null) return NotFound($"Nenhuma música encontrada para a plataforma {platform}.");
+            if (musicId == null) return NotFound($"Nenhuma música encontrada para a plataforma {platform}.");
             musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
             return Ok(musicResponse);
-        } 
+        }
         else
         {
             musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform, groupId);
@@ -53,7 +52,7 @@ public class MusicController : ControllerBase
 
     [HttpGet("GetRamdomMusic")]
     public async Task<IActionResult?> GetRandomMusic(string groupId)
-    { 
+    {
         int? musicId = await _musicRepository.GetRandomMusicId(groupId);
         if (musicId == null) return NotFound($"Nenhuma música encontrada para o grupo.");
 
@@ -105,9 +104,9 @@ public class MusicController : ControllerBase
         };
 
         await _musicRepository.InsertMusic(music, user);
-        
+
         Console.WriteLine($"MusicID: {music.Id}");
 
-        return Ok("Adicionei a musica, muito obridado :D");   
+        return Ok("Adicionei a musica, muito obridado :D");
     }
 }

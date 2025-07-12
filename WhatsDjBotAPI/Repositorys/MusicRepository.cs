@@ -1,14 +1,12 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Text.RegularExpressions;
 using WhatsDjBotAPI.Models;
 namespace WhatsDjBotAPI.Repositorys
 {
     public class MusicRepository : IMusicRepository
     {
         DbEntity _context;
-        public MusicRepository(DbEntity context) 
+        public MusicRepository(DbEntity context)
         {
             _context = context;
         }
@@ -30,7 +28,7 @@ namespace WhatsDjBotAPI.Repositorys
         }
         public async Task<int?> GetRandomMusicId(string groupId)
         {
-           
+
             List<Music> groupMusics = _context.Musics.Where(x => x.GroupId == groupId).ToList();
             int randomIndex = new Random().Next(0, groupMusics.Count());
             Music? music = groupMusics[randomIndex];
@@ -51,7 +49,7 @@ namespace WhatsDjBotAPI.Repositorys
         {
             bool musicaExistente = false;
             List<Music>? musics = _context.Musics.Where<Music>(x => x.Link == music.Link).ToList();
-            if(musics == null)
+            if (musics == null)
             {
                 await _context.Musics.AddAsync(music);
                 await _context.SaveChangesAsync();

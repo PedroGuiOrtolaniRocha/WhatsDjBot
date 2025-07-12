@@ -65,7 +65,7 @@
 
             if (startindex == -1)
             {
-                foreach(string platform in PossiblePlatforms)
+                foreach (string platform in PossiblePlatforms)
                 {
                     if (startindex == -1)
                     {
