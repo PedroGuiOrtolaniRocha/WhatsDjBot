@@ -20,6 +20,8 @@ public class GroupMusicHandler : IGroupMusicHandler
 
     public async Task<string?> GetRandomGroupMusic(string? platform, string groupId)
     {
+        Console.WriteLine($"GetRandomGroupMusic called with platform: {platform} and groupId: {groupId}");
+
         int? musicId;
         MusicResponse? musicResponse;
 
