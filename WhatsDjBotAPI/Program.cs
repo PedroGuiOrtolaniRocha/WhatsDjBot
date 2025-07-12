@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Repositorys;
+using WhatsDjBotAPI.Utils.AgentTools;
 
 namespace WhatsDjBotAPI
 {
@@ -17,6 +19,8 @@ namespace WhatsDjBotAPI
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IMusicRepository, MusicRepository>();
             builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+            builder.Services.AddScoped<IGroupMusicHandler, GroupMusicHandler>();
+
 
             builder.Services.AddDistributedMemoryCache();
 

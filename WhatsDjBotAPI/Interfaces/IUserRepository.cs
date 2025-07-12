@@ -1,6 +1,6 @@
 ﻿using WhatsDjBotAPI.Models;
 
-namespace WhatsDjBotAPI.Repositorys
+namespace WhatsDjBotAPI.Interfaces
 {
     public interface IUserRepository
     {

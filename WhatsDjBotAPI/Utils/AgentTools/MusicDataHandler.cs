@@ -1,4 +1,4 @@
-﻿namespace WhatsDjBotAPI.Utils
+﻿namespace WhatsDjBotAPI.Utils.AgentTools
 {
     public class MusicDataHandler
     {

@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Models;
 namespace WhatsDjBotAPI.Repositorys
 {
@@ -29,7 +30,7 @@ namespace WhatsDjBotAPI.Repositorys
         public async Task<int?> GetRandomMusicId(string groupId)
         {
 
-            List<Music> groupMusics = _context.Musics.Where(x => x.GroupId == groupId).ToList();
+            List<Music> groupMusics = await _context.Musics.Where(x => x.GroupId == groupId).ToListAsync<Music>();
             int randomIndex = new Random().Next(0, groupMusics.Count());
             Music? music = groupMusics[randomIndex];
             if (music == null)
@@ -47,7 +48,6 @@ namespace WhatsDjBotAPI.Repositorys
 
         public async Task InsertMusic(Music music, User sender)
         {
-            bool musicaExistente = false;
             List<Music>? musics = _context.Musics.Where<Music>(x => x.Link == music.Link).ToList();
             if (musics == null)
             {
@@ -59,7 +59,6 @@ namespace WhatsDjBotAPI.Repositorys
             {
                 if (item.Link == music.Link && item.GroupId == music.GroupId)
                 {
-                    musicaExistente = true;
                     return;
                 }
             }

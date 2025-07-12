@@ -1,4 +1,5 @@
-﻿using WhatsDjBotAPI.Models;
+﻿using WhatsDjBotAPI.Interfaces;
+using WhatsDjBotAPI.Models;
 namespace WhatsDjBotAPI.Repositorys
 {
     public class MessageRepository : IMessageRepository

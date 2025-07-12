@@ -1,5 +1,4 @@
-﻿using WhatsDjBotAPI.Repositorys;
-
+﻿using WhatsDjBotAPI.Interfaces;
 
 namespace WhatsDjBotAPI.Utils
 {

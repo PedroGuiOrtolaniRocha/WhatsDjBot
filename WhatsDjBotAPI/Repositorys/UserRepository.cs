@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Models;
 
 namespace WhatsDjBotAPI.Repositorys
