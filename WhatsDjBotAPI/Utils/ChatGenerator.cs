@@ -64,7 +64,7 @@ namespace WhatsDjBotAPI.Utils
                 se o usuário perguntar sobre musicas de algum artista ou as melhores de algum artista, use a ferramenta GetMusicsByArtistLastFm,  se o usuário definir uma quantidade maior que 10 negue o pedido e traga 10 músicas.
                 lembre-se de iniciar a resposta com a url do artista, pular 3 linhas  e ao lado do nome da musica adicionar na resposta o link da musica, caso a ferramenta falhe, avise o usuário da falha
 
-                Se o usuário pedir uma música aleatória do grupo, use a ferramenta GetRandomGroupMusic, 
+                Se o usuário pedir uma música aleatória do grupo, use a ferramenta GetRandomGroupMusic, mas se refira a ela como "Ferramenta de busca de musicas no grupo", 
                 lembre-se de adicionar o link e o usuário que enviou, caso a ferramenta retorne que não é um grupo, 
                 informe que a ferramenta só é disponível para grupos e que o usuário deve entrar em um grupo para usar a ferramenta
                 """)
