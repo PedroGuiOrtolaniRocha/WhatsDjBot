@@ -8,13 +8,13 @@ using WhatsDjBotAPI.Utils.AgentTools;
 namespace WhatsBot.Controllers;
 public class WhatsResponseController : ControllerBase
 {
-
     private readonly IGroupMusicHandler _gmHandler;
     private BotSettings _bot;
 
-    public WhatsResponseController(GroupMusicHandler groupMusicHandler)
+    public WhatsResponseController(IUserRepository userRepository, IMusicRepository musicRepository, IMessageRepository messageRepository)
     {
-        _gmHandler = groupMusicHandler;
+
+        _gmHandler = new GroupMusicHandler(userRepository, musicRepository, messageRepository);
         _bot = new();
     }
 
