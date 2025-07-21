@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using WhatsDjBotAPI.Interfaces;
+using WhatsDjBotAPI.Models;
 using WhatsDjBotAPI.Utils;
 using WhatsDjBotAPI.Utils.AgentTools;
 
@@ -13,7 +14,6 @@ public class WhatsResponseController : ControllerBase
 
     public WhatsResponseController(IUserRepository userRepository, IMusicRepository musicRepository, IMessageRepository messageRepository)
     {
-
         _gmHandler = new GroupMusicHandler(userRepository, musicRepository, messageRepository);
         _bot = new();
     }
@@ -23,6 +23,8 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> ReadResponse()
     {
+        List<Message> messages = new List<Message>();
+
         HttpContext.Request.EnableBuffering();
 
         string body = "";
@@ -61,16 +63,24 @@ public class WhatsResponseController : ControllerBase
 
             if (contextMessage.IsResponse || contextMessage.IsMentioned)
             {
-                string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId ,_gmHandler);
+                List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
+
+                string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId ,_gmHandler, messageHistory);
                 await contextMessage.SendResponse(outputMessage);
+                await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
+
                 Console.WriteLine("Mensagem enviada: " + outputMessage + "\n\n");
             }
 
         }
         if (!contextMessage.IsGroup)
         {
-            string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _gmHandler);
+            List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
+
+            string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _gmHandler, messageHistory);
             await contextMessage.SendResponse(outputMessage);
+            await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
+
             Console.WriteLine("Mensagem enviada: " + outputMessage + "\n\n");
         }
 

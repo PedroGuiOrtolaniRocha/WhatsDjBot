@@ -1,4 +1,5 @@
-﻿using WhatsDjBotAPI.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Models;
 namespace WhatsDjBotAPI.Repositorys
 {
@@ -22,5 +23,13 @@ namespace WhatsDjBotAPI.Repositorys
             return message.Id;
         }
 
+        public async Task<List<Message>> GetLastMessagesByUser(int userId, int limit = 10)
+        {
+            return await _context.Messages
+                .Where(m => m.UserId == userId)
+                .OrderByDescending(m => m.DateTime)
+                .Take(limit)
+                .ToListAsync();
+        }
     }
 }

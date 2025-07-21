@@ -18,6 +18,43 @@ public class GroupMusicHandler : IGroupMusicHandler
         _musicRepository = musicRepository;
     }
 
+    public async Task<List<Message>?> GetMessagesHistory(string userName, string userPhone, int limit = 10)
+    {
+        User user = await _userRepository.GetUserByPhone(userPhone) ?? new() {Phone = userPhone, Name = userName };
+
+        if (user.Id == null)
+        {
+            user.Id = await _userRepository.InsertUser(user);
+            return null;
+        }
+
+        List<Message> messages = await _messageRepository.GetLastMessagesByUser(user.Id, limit);
+        return messages;
+    }
+
+    public async Task InsertContextMessageAndResponse(ContextMessage message, string response)
+    {
+        User user = await _userRepository.GetUserByPhone(message.UserNumber) ?? new User
+        {
+            Phone = message.UserNumber,
+            Name = message.UserName
+        };
+
+        if (user.Id == null)
+        {
+            user.Id = await _userRepository.InsertUser(user);
+        }
+
+        Message messageToInsert = new()
+        {
+            UserId = user.Id,
+            texto_user = message.Message,
+            texto_bot = response
+        };
+
+        await _messageRepository.InsertMessage(messageToInsert);
+    }
+
     public async Task<string?> GetRandomGroupMusic(string? platform, string groupId)
     {
         Console.WriteLine($"GetRandomGroupMusic called with platform: {platform} and groupId: {groupId}");

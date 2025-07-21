@@ -3,13 +3,14 @@ using OpenAI;
 using System.ClientModel;
 using static WhatsDjBotAPI.Utils.AgentTools.MusicDataHandler;
 using WhatsDjBotAPI.Interfaces;
+using WhatsDjBotAPI.Models;
 
 
 namespace WhatsDjBotAPI.Utils
 {
     public class ChatGenerator
     {
-        public static async Task<string> GenerateChatResponseAsync(string message, string name, string groupId, IGroupMusicHandler gmHandler)
+        public static async Task<string> GenerateChatResponseAsync(string message, string name, string groupId, IGroupMusicHandler gmHandler, List<Message>? messagesHistory = null)
         {
 
             OpenAIClientOptions options = new OpenAIClientOptions();
@@ -70,6 +71,12 @@ namespace WhatsDjBotAPI.Utils
                 Nunca deixa de responder o usuário, isso é de extrema importancia.
                 """)
             ];
+
+            foreach(Message msg in messagesHistory)
+            {
+                chatHistory.Add(new ChatMessage(ChatRole.User, msg.texto_user));
+                chatHistory.Add(new ChatMessage(ChatRole.Assistant, msg.texto_bot));
+            }
 
             chatHistory.Add(new ChatMessage(ChatRole.User, message));
 
