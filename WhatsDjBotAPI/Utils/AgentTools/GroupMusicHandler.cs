@@ -58,6 +58,8 @@ public class GroupMusicHandler : IGroupMusicHandler
         };
 
         await _messageRepository.InsertMessage(messageToInsert);
+
+        Console.WriteLine($"Mensagem inserida com ID: {messageToInsert.Id}");
     }
 
     public async Task<string?> GetRandomGroupMusic(string? platform, string groupId)
