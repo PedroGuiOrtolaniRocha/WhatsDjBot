@@ -39,6 +39,12 @@ public class GroupMusicHandler : IGroupMusicHandler
         }
 
         List<Message> messages = await _messageRepository.GetLastMessagesByUser(user.Id, limit);
+
+        foreach (var message in messages)
+        {
+            Console.WriteLine($"Message ID: {message.Id}, User ID: {message.UserId}, Text: {message.texto_user}");
+        }
+
         return messages;
     }
 
