@@ -75,7 +75,7 @@ public class GroupMusicHandler : IGroupMusicHandler
         Console.WriteLine($"Mensagem inserida com ID: {messageToInsert.Id}");
     }
 
-    public async Task<string?> GetRandomGroupMusic(string? platform, string groupId)
+    public async Task<string?> GetRandomGroupMusic(string? platform, string? groupId)
     {
         Console.WriteLine($"GetRandomGroupMusic called with platform: {platform} and groupId: {groupId}");
 

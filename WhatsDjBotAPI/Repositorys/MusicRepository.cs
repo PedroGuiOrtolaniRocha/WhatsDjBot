@@ -27,11 +27,18 @@ namespace WhatsDjBotAPI.Repositorys
             }
             return music.Id;
         }
-        public async Task<int?> GetRandomMusicId(string groupId)
+        public async Task<int?> GetRandomMusicId(string? groupId)
         {
+            int randomIndex;
+
+            if (groupId == null)
+            {
+                randomIndex = new Random().Next(0, _context.Musics.Count());
+                Music? musicRandom = await _context.Musics.FindAsync(randomIndex);
+            }
 
             List<Music> groupMusics = await _context.Musics.Where(x => x.GroupId == groupId).ToListAsync<Music>();
-            int randomIndex = new Random().Next(0, groupMusics.Count());
+            randomIndex = new Random().Next(0, groupMusics.Count());
             Music? music = groupMusics[randomIndex];
             if (music == null)
             {
