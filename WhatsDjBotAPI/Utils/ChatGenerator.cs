@@ -81,6 +81,8 @@ namespace WhatsDjBotAPI.Utils
             chatHistory.Add(new ChatMessage(ChatRole.User, message));
 
             string response = "";
+
+            Console.WriteLine($"Pensando na resposta...");
             await foreach (ChatResponseUpdate item in
                 chatClient.GetStreamingResponseAsync(chatHistory, chatOptions))
             {
