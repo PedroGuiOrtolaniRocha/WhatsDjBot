@@ -26,7 +26,7 @@ namespace WhatsDjBotAPI.Repositorys
         public async Task<List<Message>> GetLastMessagesByUser(int userId, int limit = 10)
         {
             return await _context.Messages
-                .Where(m => m.UserId == userId)
+                .Where(m => m.UserId == userId && m.texto_bot != null & m.texto_user != null)
                 .OrderByDescending(m => m.DateTime)
                 .Take(limit)
                 .ToListAsync();
