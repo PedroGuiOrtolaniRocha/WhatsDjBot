@@ -129,6 +129,8 @@ public class GroupMusicHandler : IGroupMusicHandler
         var message = new Message
         {
             UserId = user.Id,
+            texto_user = messageText,
+            texto_bot = "."
         };
 
         await _messageRepository.InsertMessage(message);
