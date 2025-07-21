@@ -23,11 +23,18 @@ public class GroupMusicHandler : IGroupMusicHandler
     {
         Console.WriteLine($"GetMessagesHistory called with userName: {userName}, userPhone: {userPhone}, limit: {limit}");
 
-        User user = await _userRepository.GetUserByPhone(userPhone) ?? new() {Phone = userPhone, Name = userName };
+        User? user = await _userRepository.GetUserByPhone(userPhone);
+
+        if(user == null)
+        {
+            user = new() {Phone = userPhone, Name = userName };
+            user.Id = await _userRepository.InsertUser(user);
+            Console.WriteLine($"User created with ID: {user.Id}");
+            return null;
+        }
 
         if (user.Id == null)
         {
-            user.Id = await _userRepository.InsertUser(user);
             return null;
         }
 
