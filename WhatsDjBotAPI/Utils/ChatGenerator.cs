@@ -43,7 +43,7 @@ namespace WhatsDjBotAPI.Utils
                     "GetRandomGroupMusic", 
                     """ 
                     A ferramenta é usada para buscar uma música aleatória de um grupo específico em uma plataforma específica.
-                    Use esta ferramenta sempre que o usuário perguntar por uma música aleatória de um grupo ou solicitar uma música de um grupo específico.
+                    Use esta ferramenta sempre que o usuário perguntar por uma música aleatória.
                     O parâmetro 'platform' pode ser usado para especificar a plataforma (ex: "Youtube", "Spotify", "Deezer", "Soundcloud").
                     Se não for especificado o parâmetro não deve ser preenchido, a ferramenta retornará uma música aleatória de qualquer plataforma disponível.
                     """)
@@ -65,9 +65,9 @@ namespace WhatsDjBotAPI.Utils
                 se o usuário perguntar sobre musicas de algum artista ou as melhores de algum artista, use a ferramenta GetMusicsByArtistLastFm,  se o usuário definir uma quantidade maior que 10 negue o pedido e traga 10 músicas.
                 lembre-se de iniciar a resposta com a url do artista, pular 3 linhas  e ao lado do nome da musica adicionar na resposta o link da musica, caso a ferramenta falhe, avise o usuário da falha
 
-                Se o usuário pedir uma música aleatória do grupo, use a ferramenta GetRandomGroupMusic, mas se refira a ela como "Ferramenta de busca de musicas no grupo", 
-                lembre-se de adicionar o link e o usuário que enviou, caso a ferramenta retorne que não é um grupo, ou não retorne nada, 
-                informe que a ferramenta só é disponível para grupos e que o usuário deve entrar em um grupo para usar a ferramenta.
+                Se o usuário pedir uma música aleatória, use a ferramenta GetRandomGroupMusic, mas se refira a ela como "Ferramenta de busca de musicas no grupo", 
+                lembre-se de adicionar o link e o usuário que enviou, caso a ferramenta não retorne nada, 
+                informe que a ferramenta falhou.
                 Nunca deixa de responder o usuário, isso é de extrema importancia.
                 """)
             ];
