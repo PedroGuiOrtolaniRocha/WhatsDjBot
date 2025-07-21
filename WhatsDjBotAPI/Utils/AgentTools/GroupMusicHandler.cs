@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Models;
 
@@ -20,6 +21,8 @@ public class GroupMusicHandler : IGroupMusicHandler
 
     public async Task<List<Message>?> GetMessagesHistory(string userName, string userPhone, int limit = 10)
     {
+        Console.WriteLine($"GetMessagesHistory called with userName: {userName}, userPhone: {userPhone}, limit: {limit}");
+
         User user = await _userRepository.GetUserByPhone(userPhone) ?? new() {Phone = userPhone, Name = userName };
 
         if (user.Id == null)
@@ -34,6 +37,8 @@ public class GroupMusicHandler : IGroupMusicHandler
 
     public async Task InsertContextMessageAndResponse(ContextMessage message, string response)
     {
+        Console.WriteLine($"Inserindo mensagem");
+
         User user = await _userRepository.GetUserByPhone(message.UserNumber) ?? new User
         {
             Phone = message.UserNumber,
