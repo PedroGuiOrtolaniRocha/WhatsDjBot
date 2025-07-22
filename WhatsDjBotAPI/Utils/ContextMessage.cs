@@ -39,7 +39,7 @@ namespace WhatsDjBotAPI.Utils
             }
             else if (IsGroup)
             {
-                if (messageData.ContainsKey("contextInfo"))
+                if (messageData.ContainsKey("contextInfo") && messageData["contextInfo"] != null)
                 {
                     IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
                 }
