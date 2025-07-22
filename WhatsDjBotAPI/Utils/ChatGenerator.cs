@@ -14,7 +14,7 @@ namespace WhatsDjBotAPI.Utils
         {
 
             OpenAIClientOptions options = new OpenAIClientOptions();
-            options.Endpoint = new Uri("https://api.groq.com/openai/v1");
+            options.Endpoint = new Uri(Environment.GetEnvironmentVariable("AI_URI"));
 
             ChatOptions chatOptions = new ChatOptions
             {
@@ -49,7 +49,7 @@ namespace WhatsDjBotAPI.Utils
                     """)
                 ]
             };
-
+            
             IChatClient chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("AI_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
 
 
