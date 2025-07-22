@@ -88,6 +88,9 @@ public class GroupMusicHandler : IGroupMusicHandler
             musicId = await _musicRepository.GetRandomMusicId(groupId);
             if (musicId == null) return $"Nenhuma música encontrada.";
             musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
+
+            Console.WriteLine($"Música encontrada: {musicResponse.Link}");
+
             return System.Text.Json.JsonSerializer.Serialize(musicResponse);
         }
         else
@@ -95,6 +98,9 @@ public class GroupMusicHandler : IGroupMusicHandler
             musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform, groupId);
             if (musicId == null) return $"Nenhuma música encontrada para a plataforma {platform}.";
             musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
+
+            Console.WriteLine($"Música encontrada: {musicResponse.Link}");
+
             return System.Text.Json.JsonSerializer.Serialize(musicResponse);
         }
 
