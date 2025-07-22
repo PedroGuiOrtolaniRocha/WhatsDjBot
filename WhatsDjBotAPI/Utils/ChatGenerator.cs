@@ -67,7 +67,7 @@ namespace WhatsDjBotAPI.Utils
                 Ação: Utilize a ferramenta GetMusicsByArtistLastFm.
                 Limite de Músicas: Se {name} solicitar mais de 10 músicas, informe que o limite é 10 e forneça as 10 principais. Não negue o pedido completamente, apenas ajuste a quantidade para o máximo permitido.
                 Formato da Resposta: A resposta deve seguir este formato, sem exceções:
-                A URL da página do artista.
+                A URL da página do artista (Apenas o link, sem qualquer palavra).
                 (Pule 3 linhas)
                 Liste as músicas, colocando o link de cada música ao lado do seu nome.
                 Em Caso de Falha: Se a ferramenta GetMusicsByArtistLastFm falhar, informe a {name} que ocorreu um erro e não foi possível buscar as músicas daquele artista.
