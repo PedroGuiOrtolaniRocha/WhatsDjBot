@@ -50,7 +50,7 @@ namespace WhatsDjBotAPI.Utils
                 ]
             };
 
-            IChatClient chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("GROQ_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
+            IChatClient chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("AI_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
 
 
             List<ChatMessage> chatHistory =
