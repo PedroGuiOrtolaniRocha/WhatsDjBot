@@ -27,7 +27,7 @@ namespace WhatsDjBotAPI.Repositorys
         {
             return await _context.Messages
                 .Where(m => m.UserId == userId && m.texto_bot != null & m.texto_user != null)
-                .OrderByDescending(m => m.DateTime)
+                .OrderByDescending(m => m.Id)
                 .Take(limit)
                 .ToListAsync();
         }
