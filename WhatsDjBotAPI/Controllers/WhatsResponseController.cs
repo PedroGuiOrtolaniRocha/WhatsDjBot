@@ -49,9 +49,6 @@ public class WhatsResponseController : ControllerBase
             );
         }
 
-        Console.WriteLine("Bot ID: " + _bot.BotId + "\n" + reqDict["data"].ToString());
-
-
         ContextMessage? contextMessage = new(reqDict["data"], _bot);
         
         if (contextMessage.FromBot)
@@ -98,11 +95,7 @@ public class WhatsResponseController : ControllerBase
 
         Console.WriteLine("Informações do bot:");
         Console.WriteLine($"Bot Name: {_bot.BotName}");
-        Console.WriteLine($"Bot ID: {_bot.BotId}");
-        Console.WriteLine($"Bot Number: {_bot.BotNumber}");
-        Console.WriteLine($"Server URL: {_bot.ServerUrl}");
-        Console.WriteLine($"API Key: {_bot.ApiKey}\n\n");
-
+        Console.WriteLine($"Bot Number: {_bot.BotNumber}\n\n");
 
         Console.WriteLine("Informações do usuário:");
         Console.WriteLine($"User Name: {contextMessage.UserName}");
