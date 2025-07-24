@@ -50,12 +50,12 @@ public class WhatsResponseController : ControllerBase
         }
 
         ContextMessage? contextMessage = new(reqDict["data"], _bot);
-        
+
         if (contextMessage.FromBot)
         {
             return Ok();
         }
-        
+
 
         logMessage(contextMessage);
 
@@ -67,7 +67,7 @@ public class WhatsResponseController : ControllerBase
             {
                 List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
-                string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId ,_gmHandler, messageHistory);
+                string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId, _gmHandler, messageHistory);
                 await contextMessage.SendResponse(outputMessage);
                 await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
 

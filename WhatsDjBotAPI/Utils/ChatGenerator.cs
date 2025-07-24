@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.AI;
 using OpenAI;
 using System.ClientModel;
-using static WhatsDjBotAPI.Utils.AgentTools.MusicDataHandler;
 using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Models;
+using static WhatsDjBotAPI.Utils.AgentTools.MusicDataHandler;
 
 
 namespace WhatsDjBotAPI.Utils
@@ -19,7 +19,7 @@ namespace WhatsDjBotAPI.Utils
 
             ChatOptions chatOptions = new ChatOptions
             {
-                Tools = 
+                Tools =
                 [
                     AIFunctionFactory.Create(async (string artistName, int qtnd) =>
                     {
@@ -36,12 +36,12 @@ namespace WhatsDjBotAPI.Utils
                      O parâmetro 'qtnd' (quantidade) pode ser usado para especificar o número de músicas a serem retornadas,
                      com um padrão de 5 se não for especificado pelo usuário, mas se o usuário definir uma quantidade maior que 10 negue o pedido e traga 10 músicas.
                      """),
-                    
+
                     AIFunctionFactory.Create(async (string? platform) =>
                     {
                         return await gmHandler.GetRandomGroupMusic(platform, groupId);
                     },
-                    "GetRandomGroupMusic", 
+                    "GetRandomGroupMusic",
                     """ 
                     A ferramenta é usada para buscar uma música aleatória de um grupo específico em uma plataforma específica.
                     Use esta ferramenta sempre que o usuário perguntar por uma música aleatória.
@@ -50,7 +50,7 @@ namespace WhatsDjBotAPI.Utils
                     """)
                 ]
             };
-            
+
 
 
             List<ChatMessage> chatHistory =
@@ -80,7 +80,7 @@ namespace WhatsDjBotAPI.Utils
                 """)
             ];
 
-            foreach(Message msg in messagesHistory)
+            foreach (Message msg in messagesHistory)
             {
                 chatHistory.Add(new ChatMessage(ChatRole.User, msg.texto_user));
                 chatHistory.Add(new ChatMessage(ChatRole.Assistant, msg.texto_bot));

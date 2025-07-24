@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Models;
 
@@ -25,9 +24,9 @@ public class GroupMusicHandler : IGroupMusicHandler
 
         User? user = await _userRepository.GetUserByPhone(userPhone);
 
-        if(user == null)
+        if (user == null)
         {
-            user = new() {Phone = userPhone, Name = userName };
+            user = new() { Phone = userPhone, Name = userName };
             user.Id = await _userRepository.InsertUser(user);
             Console.WriteLine($"User created with ID: {user.Id}");
             return null;
@@ -106,7 +105,7 @@ public class GroupMusicHandler : IGroupMusicHandler
 
     }
 
-    
+
     public async Task VeryfyMessageAndInsertMusic(string messageText, string phone, string userName, string groupId)
     {
         int userId;
