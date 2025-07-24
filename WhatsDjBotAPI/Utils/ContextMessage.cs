@@ -23,7 +23,6 @@ namespace WhatsDjBotAPI.Utils
             Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
             Dictionary<string, object> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["message"].ToString());
 
-
             IsGroup = messageData["key"].ToString().Contains("@g.us");
             Message = messageInfo["conversation"].ToString();
             UserName = messageData["pushName"].ToString();
@@ -62,6 +61,8 @@ namespace WhatsDjBotAPI.Utils
             }
 
             UserNumber = UserId.Substring(0, 13);
+            FromBot = (UserNumber == _bot.BotNumber);
+
         }
 
         public async Task SendResponse(string outputMessage)
