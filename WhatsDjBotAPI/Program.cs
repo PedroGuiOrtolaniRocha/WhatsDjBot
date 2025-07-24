@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Repositorys;
+using WhatsDjBotAPI.Utils;
 using WhatsDjBotAPI.Utils.AgentTools;
 
 namespace WhatsDjBotAPI
@@ -15,6 +16,8 @@ namespace WhatsDjBotAPI
 
             // Add services to the container.
             builder.Services.AddDbContext<DbEntity>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("FamiliaUnip")));
+
+            builder.Services.AddSingleton<IChatGenerator, ChatGenerator>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IMusicRepository, MusicRepository>();

@@ -10,18 +10,19 @@ namespace WhatsBot.Controllers;
 public class WhatsResponseController : ControllerBase
 {
     private readonly IGroupMusicHandler _gmHandler;
+    private readonly IChatGenerator _chatGenerator;
     private BotSettings _bot;
 
-    public WhatsResponseController(IUserRepository userRepository, IMusicRepository musicRepository, IMessageRepository messageRepository)
+    public WhatsResponseController(IUserRepository userRepository, IMusicRepository musicRepository, IMessageRepository messageRepository, IChatGenerator chatGenerator)
     {
         _gmHandler = new GroupMusicHandler(userRepository, musicRepository, messageRepository);
         _bot = new();
+        _chatGenerator = chatGenerator;
     }
-
 
     [HttpPost]
     [Route("api/whatsresponse/messages-upsert")]
-    public async Task<IActionResult> ReadResponse()
+    public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
     {
         List<Message> messages = new List<Message>();
 
@@ -67,7 +68,7 @@ public class WhatsResponseController : ControllerBase
             {
                 List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
-                string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId, _gmHandler, messageHistory);
+                string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId, _gmHandler, messageHistory);
                 await contextMessage.SendResponse(outputMessage);
                 await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
 
@@ -79,7 +80,7 @@ public class WhatsResponseController : ControllerBase
         {
             List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
-            string outputMessage = await ChatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _gmHandler, messageHistory);
+            string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _gmHandler, messageHistory);
             await contextMessage.SendResponse(outputMessage);
             await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
 

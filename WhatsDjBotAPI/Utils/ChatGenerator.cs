@@ -8,14 +8,20 @@ using static WhatsDjBotAPI.Utils.AgentTools.MusicDataHandler;
 
 namespace WhatsDjBotAPI.Utils
 {
-    public class ChatGenerator
+    public class ChatGenerator : IChatGenerator
     {
-        public static async Task<string> GenerateChatResponseAsync(string message, string name, string groupId, IGroupMusicHandler gmHandler, List<Message>? messagesHistory = null)
+        private IChatClient _chatClient;
+        public ChatGenerator()
         {
-
             OpenAIClientOptions options = new OpenAIClientOptions();
             options.Endpoint = new Uri(Environment.GetEnvironmentVariable("AI_URI"));
-            IChatClient chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("AI_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
+            _chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("AI_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
+        }
+
+        public async Task<string> GenerateChatResponseAsync(string message, string name, string groupId, IGroupMusicHandler gmHandler, List<Message>? messagesHistory = null)
+        {
+
+
 
             ChatOptions chatOptions = new ChatOptions
             {
@@ -92,7 +98,7 @@ namespace WhatsDjBotAPI.Utils
 
             Console.WriteLine($"Pensando na resposta...");
             await foreach (ChatResponseUpdate item in
-            chatClient.GetStreamingResponseAsync(chatHistory, chatOptions))
+            _chatClient.GetStreamingResponseAsync(chatHistory, chatOptions))
             {
                 response += item.Text;
             }
