@@ -17,7 +17,7 @@ namespace WhatsDjBotAPI
             // Add services to the container.
             builder.Services.AddDbContext<DbEntity>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("FamiliaUnip")));
 
-            builder.Services.AddSingleton<IChatGenerator, ChatGenerator>();
+            builder.Services.AddSingleton<IChatGenerator, OpenAiChatGenerator>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IMusicRepository, MusicRepository>();

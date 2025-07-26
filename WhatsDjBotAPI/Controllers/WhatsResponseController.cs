@@ -68,7 +68,7 @@ public class WhatsResponseController : ControllerBase
             {
                 List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
-                string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId, _gmHandler, messageHistory);
+                string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId, _bot.BotName,_gmHandler, messageHistory);
                 await contextMessage.SendResponse(outputMessage);
                 await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
 
@@ -80,7 +80,7 @@ public class WhatsResponseController : ControllerBase
         {
             List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
-            string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _gmHandler, messageHistory);
+            string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _bot.BotName, _gmHandler, messageHistory);
             await contextMessage.SendResponse(outputMessage);
             await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
 

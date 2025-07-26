@@ -8,17 +8,17 @@ using static WhatsDjBotAPI.Utils.AgentTools.MusicDataHandler;
 
 namespace WhatsDjBotAPI.Utils
 {
-    public class ChatGenerator : IChatGenerator
+    public class OpenAiChatGenerator : IChatGenerator
     {
         private IChatClient _chatClient;
-        public ChatGenerator()
+        public OpenAiChatGenerator()
         {
             OpenAIClientOptions options = new OpenAIClientOptions();
             options.Endpoint = new Uri(Environment.GetEnvironmentVariable("AI_URI"));
             _chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("AI_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
         }
 
-        public async Task<string> GenerateChatResponseAsync(string message, string name, string groupId, IGroupMusicHandler gmHandler, List<Message>? messagesHistory = null)
+        public async Task<string> GenerateChatResponseAsync(string message, string name, string groupId, string botName, IGroupMusicHandler gmHandler, List<Message>? messagesHistory = null)
         {
 
 
