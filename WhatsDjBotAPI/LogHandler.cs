@@ -16,8 +16,6 @@ namespace WhatsDjBotAPI
             Console.WriteLine(
                 "\u001b[32m \n\n - - - - - - - - - Mensagem Recebida - - - - - - - - - \n\n \u001b[0m");
 
-
-            Console.WriteLine("Informações da mensagem:");
             Console.WriteLine($"Mensagem enviada por {contextMessage.UserName} ({contextMessage.UserNumber})\n" +
                               $"\u001b[32m{contextMessage.Message}\u001b[0m");
             if (contextMessage.IsMentioned)
