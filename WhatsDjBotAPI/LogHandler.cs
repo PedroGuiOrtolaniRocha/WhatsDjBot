@@ -4,7 +4,7 @@ namespace WhatsDjBotAPI
 {
     public static class LogHandler
     {
-        private static string setColor(string colorName, string text)
+        private static string SetColor(string colorName, string text)
         {
             int colorCode;
             switch (colorName.ToLower())
@@ -40,7 +40,7 @@ namespace WhatsDjBotAPI
         public static void LogOnStart()
         {
             Console.Clear();
-            Console.WriteLine(setColor("green",
+            Console.WriteLine(SetColor("green",
                 "           _____ _____     ____        _ _            \r\n" +
                 "     /\\   |  __ \\_   _|   / __ \\      | (_)           \r\n" +
                 "    /  \\  | |__) || |    | |  | |_ __ | |_ _ __   ___ \r\n" +
@@ -54,15 +54,15 @@ namespace WhatsDjBotAPI
         public static void LogOnMessageReciveing(ContextMessage contextMessage)
         {
             Console.Clear();
-            Console.WriteLine(setColor("cyan",
-                "\n\n - - - - - - - - - Mensagem Recebida - - - - - - - - - \n\n"));
+            Console.WriteLine(SetColor("cyan",
+                "\n\n - - - - - - - - - Mensagem Recebida - - - - - - - - - \n"));
 
             Console.WriteLine("Mensagem enviada por" +
-                              setColor("cyan",
+                              SetColor("cyan",
                                   $" {contextMessage.UserName} ") + "(" +
-                              setColor("cyan",
+                              SetColor("cyan",
                                   $"{contextMessage.UserNumber}") + ")\n" +
-                              setColor("cyan",
+                              SetColor("cyan",
                               $"{contextMessage.Message}")
                               );
 
@@ -85,35 +85,37 @@ namespace WhatsDjBotAPI
 
         public static void LogOnMessageResponse(ContextMessage contextMessage)
         {
-            Console.WriteLine(setColor("blue",
-                "\n\n - - - - - - - - - Mensagem Enviada - - - - - - - - - \n\n"));
+            Console.WriteLine(SetColor("blue",
+                "\n\n - - - - - - - - - Mensagem Enviada - - - - - - - - - \n"));
 
             Console.WriteLine(" Mensagem enviada para" +
-                              setColor("blue",
+                              SetColor("blue",
                                   $" {contextMessage.UserName} ") + "(" +
-                              setColor("blue",
-                                  $"{contextMessage.UserNumber}") + ")\n"
+                              SetColor("blue",
+                                  $"{contextMessage.UserNumber}") + ")\n" + 
+                              SetColor("blue",
+                                  $"{contextMessage.BotResponse}")
             );
 
         }
 
         public static void LogOnAiChatGenerate(object? sender, EventArgs e)
         {
-            Console.WriteLine(setColor("yellow",
-                " - - - - - - - - - Preparando resposta - - - - - - - - - \n\n"));
+            Console.WriteLine(SetColor("yellow",
+                "\n\n - - - - - - - - - Preparando resposta - - - - - - - - - \n"));
         }
         public static void LogOnAiToolUse(string toolName, string[] args)
         {
             Console.WriteLine($"\nFerramente usada:" +
-                              setColor("yellow",
+                              SetColor("yellow",
                                 $"{toolName}"));
 
             for (int i = 0; i < args.Length; i += 2)
             {
                 Console.WriteLine("Parâmetro: " +
-                                  setColor("yellow", $"{args[i]} ") +
+                                  SetColor("yellow", $"{args[i]} ") +
                                   "Valor: " +
-                                  setColor("yellow", $"{args[i + 1]}"));
+                                  SetColor("yellow", $"{args[i + 1]}"));
             }
         }
     }
