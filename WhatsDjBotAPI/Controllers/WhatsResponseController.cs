@@ -75,19 +75,19 @@ public class WhatsResponseController : ControllerBase
 
             if (contextMessage.IsResponse || contextMessage.IsMentioned)
             {
-                sendMessage(contextMessage);
+                await sendMessage(contextMessage);
             }
 
         }
         if (!contextMessage.IsGroup)
         {
-            sendMessage(contextMessage);
+            await sendMessage(contextMessage);
         }
 
         return Ok();
     }
 
-    private async void sendMessage(ContextMessage contextMessage)
+    private async Task sendMessage(ContextMessage contextMessage)
     {
         List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
