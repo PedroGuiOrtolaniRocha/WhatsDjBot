@@ -24,7 +24,7 @@ public class WhatsResponseController : ControllerBase
         _gmHandler = new GroupMusicHandler(userRepository, musicRepository, messageRepository);
         _bot = new();
         _chatGenerator = chatGenerator;
-        
+
         onMessagingReciveing += LogHandler.LogOnMessageReciveing;
         onMessagingResponse += LogHandler.LogOnMessageResponse;
     }
