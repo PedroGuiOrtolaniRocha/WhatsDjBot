@@ -74,15 +74,22 @@ namespace WhatsDjBotAPI
                               $"{contextMessage.Message}\n")
                               );
 
-            if (contextMessage.IsMentioned)
+            if (contextMessage.IsMentioned || contextMessage.IsResponse)
             {
-                Console.WriteLine("A mensagem menciona o bot");
+                if (contextMessage.IsMentioned)
+                {
+                    Console.WriteLine("A mensagem menciona o bot");
+                }
+                if (contextMessage.IsResponse)
+                {
+                    Console.WriteLine("A mensagem responde o bot");
+                }
+            }
+            else
+            {
+                Console.WriteLine( SetColor("red", "A mensagem não gera resposta"));   
             }
 
-            if (contextMessage.IsResponse)
-            {
-                Console.WriteLine("A mensagem responde o bot");
-            }
 
         }
 
