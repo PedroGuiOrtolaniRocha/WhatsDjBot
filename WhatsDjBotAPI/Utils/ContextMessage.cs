@@ -19,15 +19,14 @@ namespace WhatsDjBotAPI.Utils
         public ContextMessage(object messageDataObj, BotSettings bot)
         {
             _bot = bot;
-            try
-            {
-                Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
+
+            Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
                 Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
                 Dictionary<string, object> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["message"].ToString());
             
                 IsGroup = messageData["key"].ToString().Contains("@g.us");
-                Message = messageInfo["conversation"].ToString();
-                UserName = messageData["pushName"].ToString();
+
+            UserName = messageData["pushName"].ToString();
 
                 if (messageKey["fromMe"].ToString() == "true")
                 {
@@ -64,12 +63,17 @@ namespace WhatsDjBotAPI.Utils
 
                 UserNumber = UserId.Substring(0, 13);
                 FromBot = (UserNumber == _bot.BotNumber);
-            }
-            catch (Exception e)
-            {
-                LogHandler.LogOnError(e, "erro ao processar mensagem recebida");
-                throw;
-            }
+
+                try
+                {
+                    Message = messageInfo["conversation"].ToString();
+
+                }
+                catch (Exception e)
+                {
+                    LogHandler.LogOnError(e, $"erro ao processar texto da mensagem recebida de {UserName} ({UserNumber})");
+                    throw;
+                }
         }
 
         public async Task SendResponse()
