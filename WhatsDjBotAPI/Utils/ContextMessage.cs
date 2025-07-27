@@ -72,6 +72,7 @@ namespace WhatsDjBotAPI.Utils
                 catch (Exception e)
                 {
                     LogHandler.LogOnError(e, $"erro ao processar texto da mensagem recebida de {UserName} ({UserNumber})");
+                    Message = "Mensagem não processada";
                     throw;
                 }
         }
