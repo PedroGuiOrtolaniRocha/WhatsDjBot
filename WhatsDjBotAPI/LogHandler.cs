@@ -14,15 +14,12 @@ namespace WhatsDjBotAPI
         {
             Console.Clear();
             Console.WriteLine(
-                "\u001b[32m  _   _                   __  __                                            \r\n | \\ | |                 |  \\/  |                                           \r\n |  \\| | _____   ____ _  | \\  / | ___ _ __  ___  __ _  __ _  ___ _ __ ___   \r\n | . ` |/ _ \\ \\ / / _` | | |\\/| |/ _ \\ '_ \\/ __|/ _` |/ _` |/ _ \\ '_ ` _ \\  \r\n | |\\  | (_) \\ V / (_| | | |  | |  __/ | | \\__ \\ (_| | (_| |  __/ | | | | | \r\n |_| \\_|\\___/ \\_/ \\__,_| |_|  |_|\\___|_| |_|___/\\__,_|\\__, |\\___|_| |_| |_| \r\n                                                       __/ |                \r\n                                                      |___/                 \u001b[0m");
+                "\u001b[32m \n\n - - - - - - - - - Mensagem Recebida - - - - - - - - - \n\n \u001b[0m");
 
-            Console.WriteLine("Informações do usuário:");
-            Console.WriteLine($"User Name: {contextMessage.UserName}");
-            Console.WriteLine($"User ID: {contextMessage.UserId}");
-            Console.WriteLine($"User Number: {contextMessage.UserNumber}\n\n");
 
             Console.WriteLine("Informações da mensagem:");
-            Console.WriteLine($"Message: {contextMessage.Message}");
+            Console.WriteLine($"Mensagem enviada por {contextMessage.UserName} ({contextMessage.UserNumber})" +
+                              $"\u001b[32m{contextMessage.Message}\u001b[0m");
             Console.WriteLine($"Is Mentioned: {contextMessage.IsMentioned}");
             Console.WriteLine($"Is Response: {contextMessage.IsResponse}");
 
@@ -30,15 +27,15 @@ namespace WhatsDjBotAPI
             {
                 Console.WriteLine($"Group ID: {contextMessage.GroupId}\n\n");
             }
-            else
-            {
-                Console.WriteLine("This is a private message.\n\n");
-            }
+
         }
 
         public static void LogOnMessageResponse(ContextMessage contextMessage)
         {
-            Console.WriteLine($"\n\n\x1b[34m Mensagem enviada para {contextMessage.UserName} ({contextMessage.UserNumber}):\n{contextMessage.BotResponse}\x1b[0m");
+            Console.WriteLine(
+                "\x1b[32m \n\n - - - - - - - - - Mensagem Enviada - - - - - - - - - \n\n \x1b[0m");
+            Console.WriteLine($" Mensagem enviada para {contextMessage.UserName} ({contextMessage.UserNumber}):" +
+                $"\x1b[34m\n{contextMessage.BotResponse}\x1b[0m");
         }
     }
 }

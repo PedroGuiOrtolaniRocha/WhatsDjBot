@@ -20,8 +20,6 @@ public class GroupMusicHandler : IGroupMusicHandler
 
     public async Task<List<Message>?> GetMessagesHistory(string userName, string userPhone, int limit = 10)
     {
-        Console.WriteLine($"GetMessagesHistory called with userName: {userName}, userPhone: {userPhone}, limit: {limit}");
-
         User? user = await _userRepository.GetUserByPhone(userPhone);
 
         if (user == null)
@@ -39,18 +37,11 @@ public class GroupMusicHandler : IGroupMusicHandler
 
         List<Message> messages = await _messageRepository.GetLastMessagesByUser(user.Id, limit);
 
-        foreach (var message in messages)
-        {
-            Console.WriteLine($"Message ID: {message.Id}, User ID: {message.UserId}, Text: {message.texto_user}");
-        }
-
         return messages;
     }
 
     public async Task InsertContextMessageAndResponse(ContextMessage message)
     {
-        Console.WriteLine($"Inserindo mensagem");
-
         User user = await _userRepository.GetUserByPhone(message.UserNumber) ?? new User
         {
             Phone = message.UserNumber,
@@ -70,14 +61,10 @@ public class GroupMusicHandler : IGroupMusicHandler
         };
 
         await _messageRepository.InsertMessage(messageToInsert);
-
-        Console.WriteLine($"Mensagem inserida com ID: {messageToInsert.Id}");
     }
 
     public async Task<string?> GetRandomGroupMusic(string? platform, string? groupId = null)
     {
-        Console.WriteLine($"GetRandomGroupMusic called with platform: {platform} and groupId: {groupId}");
-
         int? musicId;
         MusicResponse? musicResponse;
 
@@ -88,8 +75,6 @@ public class GroupMusicHandler : IGroupMusicHandler
             if (musicId == null) return $"Nenhuma música encontrada.";
             musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
 
-            Console.WriteLine($"Música encontrada: {musicResponse.Link}");
-
             return System.Text.Json.JsonSerializer.Serialize(musicResponse);
         }
         else
@@ -97,8 +82,6 @@ public class GroupMusicHandler : IGroupMusicHandler
             musicId = await _musicRepository.GetRandomMusicIdByPlatform(platform, groupId);
             if (musicId == null) return $"Nenhuma música encontrada para a plataforma {platform}.";
             musicResponse = await MusicResponse.CreateAsync(musicId.Value, _musicRepository, _userRepository, _messageRepository);
-
-            Console.WriteLine($"Música encontrada: {musicResponse.Link}");
 
             return System.Text.Json.JsonSerializer.Serialize(musicResponse);
         }

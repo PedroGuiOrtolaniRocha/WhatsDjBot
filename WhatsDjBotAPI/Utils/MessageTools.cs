@@ -85,11 +85,7 @@
             int endindex = message.IndexOf(" ");
             if (endindex == -1) { endindex = message.Length; }
 
-            Console.WriteLine($"\n" +
-                $"\n\nStart: {startindex} End: {endindex}\n\n");
-
             string url = message.Substring(0, endindex - startindex);
-            Console.WriteLine($"\n\nUrl: {url}\n\n");
 
             return url;
         }
