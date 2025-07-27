@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Repositorys;
@@ -32,6 +33,11 @@ namespace WhatsDjBotAPI
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             // Configure the HTTP request pipeline.
             app.UseSwagger();
