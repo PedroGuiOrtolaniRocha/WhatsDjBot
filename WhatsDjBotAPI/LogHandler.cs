@@ -85,9 +85,9 @@ namespace WhatsDjBotAPI
                     Console.WriteLine("A mensagem responde o bot");
                 }
             }
-            else
+            else if(contextMessage.IsGroup)
             {
-                Console.WriteLine( SetColor("red", "A mensagem não gera resposta"));   
+                Console.WriteLine(SetColor("red", "A mensagem não gera resposta"));
             }
 
 
