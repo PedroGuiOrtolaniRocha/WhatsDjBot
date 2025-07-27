@@ -47,8 +47,6 @@ namespace WhatsDjBotAPI
                 c.RoutePrefix = "";
             });
 
-            app.UseHttpsRedirection();
-
             app.UseAuthorization();
 
             app.MapControllers();
