@@ -53,6 +53,13 @@ namespace WhatsDjBotAPI
 
         public static void LogOnMessageReciveing(ContextMessage contextMessage)
         {
+            string groupLog = "";
+
+            if (contextMessage.GroupId != null)
+            {
+                groupLog = " no grupo " + SetColor("cyan", contextMessage.GroupId);
+            }
+
             Console.Clear();
             Console.WriteLine(SetColor("cyan",
                 "\n\n - - - - - - - - - Mensagem Recebida - - - - - - - - - \n"));
@@ -63,8 +70,8 @@ namespace WhatsDjBotAPI
                               SetColor("cyan",
                                   $"{contextMessage.UserNumber}") + ")\n" +
                               SetColor("cyan",
-                              $"{contextMessage.Message}")
-                              );
+                              $"{contextMessage.Message}\n") + 
+                              groupLog);
 
             if (contextMessage.IsMentioned)
             {
@@ -76,15 +83,17 @@ namespace WhatsDjBotAPI
                 Console.WriteLine("A mensagem responde o bot");
             }
 
-            if (contextMessage.IsGroup)
-            {
-                Console.WriteLine($"Group ID: {contextMessage.GroupId}\n\n");
-            }
-
         }
 
         public static void LogOnMessageResponse(ContextMessage contextMessage)
         {
+            string groupLog = "";
+
+            if (contextMessage.GroupId != null)
+            {
+                groupLog = " no grupo " + SetColor("blue", contextMessage.GroupId);
+            }
+
             Console.WriteLine(SetColor("blue",
                 "\n\n - - - - - - - - - Mensagem Enviada - - - - - - - - - \n"));
 
@@ -94,7 +103,8 @@ namespace WhatsDjBotAPI
                               SetColor("blue",
                                   $"{contextMessage.UserNumber}") + ")\n" + 
                               SetColor("blue",
-                                  $"{contextMessage.BotResponse}")
+                                  $"{contextMessage.BotResponse}") +
+                              groupLog
             );
 
         }
