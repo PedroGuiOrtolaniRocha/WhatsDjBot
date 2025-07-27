@@ -43,5 +43,19 @@ namespace WhatsDjBotAPI
             Console.WriteLine($" Mensagem enviada para \u001b[35m{contextMessage.UserName}\u001b[0m (\u001b[35m{contextMessage.UserNumber}\u001b[0m)" +
                 $"\x1b[34m\n{contextMessage.BotResponse}\x1b[0m");
         }
+
+        public static void LogOnAiChatGenerate(object? sender, EventArgs e)
+        {
+            Console.WriteLine("\x1b[30m - - - - - - - - - Preparando resposta - - - - - - - - - \n\n \x1b[0m\n\n");
+        }
+        public static void LogOnAiToolUse(string toolName, string[] args)
+        {
+            Console.WriteLine($"\nFerramente usada:\u001b[30m{toolName}[0m");
+
+            for (int i = 0; i < args.Length; i += 2)
+            {
+                Console.WriteLine($"Parâmetro: {args[i]} Valor: {args[i + 1]}");
+            }
+        }
     }
 }

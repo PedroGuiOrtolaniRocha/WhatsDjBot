@@ -11,9 +11,17 @@ namespace WhatsDjBotAPI.Utils
     public class OpenAiChatGenerator : IChatGenerator
     {
         private readonly IChatClient _chatClient;
+
+        public delegate void ToolUse(string toolName, string[] args);
+
         public event EventHandler<string>? OnResponseGenerated;
+        public event EventHandler OnAiGenerate;
+        public event ToolUse OnToolUse;
         public OpenAiChatGenerator()
         {
+            OnAiGenerate += LogHandler.LogOnAiChatGenerate;
+            OnToolUse += LogHandler.LogOnAiToolUse;
+
             OpenAIClientOptions options = new OpenAIClientOptions();
             options.Endpoint = new Uri(Environment.GetEnvironmentVariable("AI_URI"));
             _chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("AI_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
@@ -30,6 +38,7 @@ namespace WhatsDjBotAPI.Utils
                 [
                     AIFunctionFactory.Create(async (string artistName, int qtnd) =>
                     {
+                        OnToolUse.Invoke("GetMusicsByArtistLastFm",["Nome artista", $"{artistName}","Numero de faixas", $"{qtnd.ToString()}"] );
                         return await GetMusicsByArtistLastFm(artistName, qtnd);
                     },
                     "GetMusicsByArtistLastFm",
@@ -46,6 +55,7 @@ namespace WhatsDjBotAPI.Utils
 
                     AIFunctionFactory.Create(async (string? platform) =>
                     {
+                        OnToolUse.Invoke("GetRandomGroupMusic",["Plataforma", $"{platform}","Id do Grupo", $"{groupId}"] );
                         return await gmHandler.GetRandomGroupMusic(platform, groupId);
                     },
                     "GetRandomGroupMusic",
@@ -96,6 +106,8 @@ namespace WhatsDjBotAPI.Utils
             chatHistory.Add(new ChatMessage(ChatRole.User, message));
 
             string response = "";
+
+            OnAiGenerate.Invoke(this, EventArgs.Empty);
 
             await foreach (ChatResponseUpdate item in
             _chatClient.GetStreamingResponseAsync(chatHistory, chatOptions))
