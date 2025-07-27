@@ -68,10 +68,11 @@ namespace WhatsDjBotAPI
                               SetColor("cyan",
                                   $" {contextMessage.UserName} ") + "(" +
                               SetColor("cyan",
-                                  $"{contextMessage.UserNumber}") + ")\n" +
+                                  $"{contextMessage.UserNumber}") +
+                              $") + {groupLog}\n" +
                               SetColor("cyan",
-                              $"{contextMessage.Message}\n") + 
-                              groupLog);
+                              $"{contextMessage.Message}\n")
+                              );
 
             if (contextMessage.IsMentioned)
             {
@@ -101,10 +102,10 @@ namespace WhatsDjBotAPI
                               SetColor("blue",
                                   $" {contextMessage.UserName} ") + "(" +
                               SetColor("blue",
-                                  $"{contextMessage.UserNumber}") + ")\n" + 
+                                  $"{contextMessage.UserNumber}") + 
+                              $") + {groupLog}\n" + 
                               SetColor("blue",
-                                  $"{contextMessage.BotResponse}") +
-                              groupLog
+                                  $"{contextMessage.BotResponse}")
             );
 
         }
