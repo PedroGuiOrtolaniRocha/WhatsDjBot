@@ -15,7 +15,7 @@ WORKDIR /app
 
 COPY --from=build /app/out ./
 
-EXPOSE 80
+EXPOSE 80, 443
 
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_URLS=http://+:80
