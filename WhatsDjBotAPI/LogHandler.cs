@@ -16,7 +16,7 @@ namespace WhatsDjBotAPI
             Console.WriteLine(
                 "\u001b[32m \n\n - - - - - - - - - Mensagem Recebida - - - - - - - - - \n\n \u001b[0m");
 
-            Console.WriteLine($"Mensagem enviada por {contextMessage.UserName} ({contextMessage.UserNumber})\n" +
+            Console.WriteLine($"Mensagem enviada por \u001b[31m{contextMessage.UserName}\u001b[0m (\u001b[34m{contextMessage.UserNumber}\u001b[0m)\n" +
                               $"\u001b[32m{contextMessage.Message}\u001b[0m");
             if (contextMessage.IsMentioned)
             {
@@ -40,7 +40,7 @@ namespace WhatsDjBotAPI
             Console.WriteLine(
                 "\x1b[34m \n\n - - - - - - - - - Mensagem Enviada - - - - - - - - - \n\n \x1b[0m");
 
-            Console.WriteLine($" Mensagem enviada para {contextMessage.UserName} ({contextMessage.UserNumber})" +
+            Console.WriteLine($" Mensagem enviada para \u001b[31m{contextMessage.UserName}\u001b[0m (\u001b[34m{contextMessage.UserNumber}\u001b[0m)" +
                 $"\x1b[34m\n{contextMessage.BotResponse}\x1b[0m");
         }
     }
