@@ -67,7 +67,7 @@ namespace WhatsDjBotAPI.Utils
             }
             catch (Exception e)
             {
-                LogHandler.LogOnError(e);
+                LogHandler.LogOnError(e, "erro ao processar mensagem recebida");
                 throw;
             }
         }
