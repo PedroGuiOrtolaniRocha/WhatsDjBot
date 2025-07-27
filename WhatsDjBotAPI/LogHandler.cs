@@ -38,7 +38,7 @@ namespace WhatsDjBotAPI
         public static void LogOnMessageResponse(ContextMessage contextMessage)
         {
             Console.WriteLine(
-                "\x1b[32m \n\n - - - - - - - - - Mensagem Enviada - - - - - - - - - \n\n \x1b[0m");
+                "\x1b[34m \n\n - - - - - - - - - Mensagem Enviada - - - - - - - - - \n\n \x1b[0m");
 
             Console.WriteLine($" Mensagem enviada para {contextMessage.UserName} ({contextMessage.UserNumber})" +
                 $"\x1b[34m\n{contextMessage.BotResponse}\x1b[0m");
