@@ -18,9 +18,18 @@ namespace WhatsDjBotAPI
 
 
             Console.WriteLine("Informações da mensagem:");
-            Console.WriteLine($"Mensagem enviada por {contextMessage.UserName} ({contextMessage.UserNumber})" +
+            Console.WriteLine($"Mensagem enviada por {contextMessage.UserName} ({contextMessage.UserNumber})\n" +
                               $"\u001b[32m{contextMessage.Message}\u001b[0m");
-            Console.WriteLine($"Is Mentioned: {contextMessage.IsMentioned}");
+            if (contextMessage.IsMentioned)
+            {
+                Console.WriteLine("A mensagem menciona o bot");
+            }
+
+            if (contextMessage.IsResponse)
+            {
+                Console.WriteLine("A mensagem responde o bot");
+            }
+
             Console.WriteLine($"Is Response: {contextMessage.IsResponse}");
 
             if (contextMessage.IsGroup)

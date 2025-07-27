@@ -10,7 +10,7 @@ namespace WhatsDjBotAPI.Utils
 {
     public class OpenAiChatGenerator : IChatGenerator
     {
-        private IChatClient _chatClient;
+        private readonly IChatClient _chatClient;
         public event EventHandler<string>? OnResponseGenerated;
         public OpenAiChatGenerator()
         {
@@ -97,15 +97,12 @@ namespace WhatsDjBotAPI.Utils
 
             string response = "";
 
-            Console.WriteLine($"Pensando na resposta...");
             await foreach (ChatResponseUpdate item in
             _chatClient.GetStreamingResponseAsync(chatHistory, chatOptions))
             {
                 response += item.Text;
             }
             chatHistory.Add(new ChatMessage(ChatRole.Assistant, response));
-
-            Console.WriteLine($"Response: {response}");
 
             if (OnResponseGenerated != null)
             {

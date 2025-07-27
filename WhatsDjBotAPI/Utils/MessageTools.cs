@@ -2,10 +2,11 @@
 {
     public class MessageTools
     {
-        public static string[] PossiblePlatforms = new string[] { "youtu.be", "spotify.com", "youtube.com", "soundcloud.com", "deezer.com" };
+        public static string[] PossiblePlatforms = ["youtu.be", "spotify.com", "youtube.com", "soundcloud.com", "deezer.com"
+        ];
         public static string WhereLinkFrom(string url)
         {
-            string platform = "Desconhecido";
+            var platform = "Desconhecido";
 
             if (url.Contains("youtube.com") || url.Contains("youtu.be") || url.Contains("music.youtube")) { platform = "Youtube"; }
             if (url.Contains("spotify.com")) { platform = "Spotify"; }
@@ -23,7 +24,7 @@
                 return true;
             }
 
-            foreach (string platform in PossiblePlatforms)
+            foreach (var platform in PossiblePlatforms)
             {
                 if (message.Contains(platform))
                 {
@@ -39,7 +40,7 @@
 
             if (!ContainsUrl(message)) { return null; }
 
-            int startindex = -1;
+            var startindex = -1;
 
             if (message.Contains("https://"))
             {
@@ -65,17 +66,14 @@
 
             if (startindex == -1)
             {
-                foreach (string platform in PossiblePlatforms)
+                foreach (var platform in PossiblePlatforms)
                 {
-                    if (startindex == -1)
+                    if (startindex == -1 && message.Contains(platform))
                     {
-                        if (message.Contains(platform))
-                        {
-                            startindex = message.IndexOf(platform);
-                            message = "https://" + message;
-                            startindex = 0;
-                            break;
-                        }
+                        startindex = message.IndexOf(platform);
+                        message = "https://" + message;
+                        startindex = 0;
+                        break;
                     }
                 }
                 if (startindex == -1) { return null; }
