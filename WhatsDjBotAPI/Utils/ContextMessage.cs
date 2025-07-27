@@ -5,6 +5,7 @@ namespace WhatsDjBotAPI.Utils
     public class ContextMessage
     {
         public string Message { get; private set; }
+        public string BotResponse { get; set; }
         public string UserName { get; private set; }
         public string UserId { get; private set; }
         public string? GroupId { get; private set; }
@@ -65,13 +66,13 @@ namespace WhatsDjBotAPI.Utils
 
         }
 
-        public async Task SendResponse(string outputMessage)
+        public async Task SendResponse()
         {
 
             var messagePayload = new
             {
                 number = GroupId ?? UserNumber,
-                text = outputMessage
+                text = BotResponse
             };
 
             HttpClient client = new();

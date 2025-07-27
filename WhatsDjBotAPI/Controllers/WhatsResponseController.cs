@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using WhatsDjBotAPI;
 using WhatsDjBotAPI.Interfaces;
 using WhatsDjBotAPI.Models;
 using WhatsDjBotAPI.Utils;
@@ -13,11 +14,19 @@ public class WhatsResponseController : ControllerBase
     private readonly IChatGenerator _chatGenerator;
     private BotSettings _bot;
 
+    public delegate void MessagingEventsHandler(ContextMessage contextMessage);
+    private event MessagingEventsHandler onMessagingReciveing;
+    private event MessagingEventsHandler onMessagingResponse;
+
+
     public WhatsResponseController(IUserRepository userRepository, IMusicRepository musicRepository, IMessageRepository messageRepository, IChatGenerator chatGenerator)
     {
         _gmHandler = new GroupMusicHandler(userRepository, musicRepository, messageRepository);
         _bot = new();
         _chatGenerator = chatGenerator;
+        
+        onMessagingReciveing += LogHandler.LogOnMessageReciveing;
+        onMessagingResponse += LogHandler.LogOnMessageResponse;
     }
 
     [HttpPost]
@@ -58,7 +67,7 @@ public class WhatsResponseController : ControllerBase
         }
 
 
-        logMessage(contextMessage);
+        onMessagingReciveing.Invoke(contextMessage);
 
         if (contextMessage.IsGroup)
         {
@@ -66,56 +75,27 @@ public class WhatsResponseController : ControllerBase
 
             if (contextMessage.IsResponse || contextMessage.IsMentioned)
             {
-                List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
-
-                string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId, _bot.BotName,_gmHandler, messageHistory);
-                await contextMessage.SendResponse(outputMessage);
-                await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
-
-                Console.WriteLine("Mensagem enviada: " + outputMessage + "\n\n");
+                sendMessage(contextMessage);
             }
 
         }
         if (!contextMessage.IsGroup)
         {
-            List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
-
-            string outputMessage = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _bot.BotName, _gmHandler, messageHistory);
-            await contextMessage.SendResponse(outputMessage);
-            await _gmHandler.InsertContextMessageAndResponse(contextMessage, outputMessage);
-
-            Console.WriteLine("Mensagem enviada: " + outputMessage + "\n\n");
+            sendMessage(contextMessage);
         }
 
         return Ok();
     }
 
-    private void logMessage(ContextMessage contextMessage)
+    private async void sendMessage(ContextMessage contextMessage)
     {
-        Console.WriteLine("\u001b[32m  _   _                   __  __                                            \r\n | \\ | |                 |  \\/  |                                           \r\n |  \\| | _____   ____ _  | \\  / | ___ _ __  ___  __ _  __ _  ___ _ __ ___   \r\n | . ` |/ _ \\ \\ / / _` | | |\\/| |/ _ \\ '_ \\/ __|/ _` |/ _` |/ _ \\ '_ ` _ \\  \r\n | |\\  | (_) \\ V / (_| | | |  | |  __/ | | \\__ \\ (_| | (_| |  __/ | | | | | \r\n |_| \\_|\\___/ \\_/ \\__,_| |_|  |_|\\___|_| |_|___/\\__,_|\\__, |\\___|_| |_| |_| \r\n                                                       __/ |                \r\n                                                      |___/                 \u001b[0m");
+        List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
-        Console.WriteLine("Informações do bot:");
-        Console.WriteLine($"Bot Name: {_bot.BotName}");
-        Console.WriteLine($"Bot Number: {_bot.BotNumber}\n\n");
+        contextMessage.BotResponse = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _bot.BotName, _gmHandler, messageHistory);
+        await contextMessage.SendResponse();
+        await _gmHandler.InsertContextMessageAndResponse(contextMessage);
 
-        Console.WriteLine("Informações do usuário:");
-        Console.WriteLine($"User Name: {contextMessage.UserName}");
-        Console.WriteLine($"User ID: {contextMessage.UserId}");
-        Console.WriteLine($"User Number: {contextMessage.UserNumber}\n\n");
-
-        Console.WriteLine("Informações da mensagem:");
-        Console.WriteLine($"Message: {contextMessage.Message}");
-        Console.WriteLine($"Is Mentioned: {contextMessage.IsMentioned}");
-        Console.WriteLine($"Is Response: {contextMessage.IsResponse}");
-
-        if (contextMessage.IsGroup)
-        {
-            Console.WriteLine($"Group ID: {contextMessage.GroupId}\n\n");
-        }
-        else
-        {
-            Console.WriteLine("This is a private message.\n\n");
-        }
+        onMessagingResponse.Invoke(contextMessage);
     }
 
 }

@@ -47,7 +47,7 @@ public class GroupMusicHandler : IGroupMusicHandler
         return messages;
     }
 
-    public async Task InsertContextMessageAndResponse(ContextMessage message, string response)
+    public async Task InsertContextMessageAndResponse(ContextMessage message)
     {
         Console.WriteLine($"Inserindo mensagem");
 
@@ -66,7 +66,7 @@ public class GroupMusicHandler : IGroupMusicHandler
         {
             UserId = user.Id,
             texto_user = message.Message,
-            texto_bot = response
+            texto_bot = message.BotResponse
         };
 
         await _messageRepository.InsertMessage(messageToInsert);
@@ -149,8 +149,6 @@ public class GroupMusicHandler : IGroupMusicHandler
         };
 
         await _musicRepository.InsertMusic(music, user);
-
-        Console.WriteLine($"MusicID: {music.Id}");
 
         return;
     }

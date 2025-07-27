@@ -11,6 +11,7 @@ namespace WhatsDjBotAPI.Utils
     public class OpenAiChatGenerator : IChatGenerator
     {
         private IChatClient _chatClient;
+        public event EventHandler<string>? OnResponseGenerated;
         public OpenAiChatGenerator()
         {
             OpenAIClientOptions options = new OpenAIClientOptions();
@@ -105,6 +106,11 @@ namespace WhatsDjBotAPI.Utils
             chatHistory.Add(new ChatMessage(ChatRole.Assistant, response));
 
             Console.WriteLine($"Response: {response}");
+
+            if (OnResponseGenerated != null)
+            {
+                OnResponseGenerated.Invoke(this, response);
+            }
 
             return response.Trim();
         }
