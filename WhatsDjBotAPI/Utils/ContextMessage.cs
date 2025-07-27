@@ -76,19 +76,6 @@ namespace WhatsDjBotAPI.Utils
                 }
         }
 
-        public static ContextMessage? SetContextMessage(object messageDataObj, BotSettings bot)
-        {
-            try
-            {
-                return new(messageDataObj, bot);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-            
-        }
-
         public async Task SendResponse()
         {
 

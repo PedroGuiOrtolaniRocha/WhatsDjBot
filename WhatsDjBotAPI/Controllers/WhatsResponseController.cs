@@ -59,9 +59,9 @@ public class WhatsResponseController : ControllerBase
             );
         }
 
-        ContextMessage? contextMessage = ContextMessage.SetContextMessage(reqDict["data"], _bot);
+        ContextMessage? contextMessage = new(reqDict["data"], _bot);
 
-        if (contextMessage.FromBot || contextMessage == null)
+        if (contextMessage.FromBot)
         {
             return Ok();
         }
