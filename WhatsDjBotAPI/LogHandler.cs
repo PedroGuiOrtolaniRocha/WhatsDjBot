@@ -69,7 +69,7 @@ namespace WhatsDjBotAPI
                                   $" {contextMessage.UserName} ") + "(" +
                               SetColor("cyan",
                                   $"{contextMessage.UserNumber}") +
-                              $") + {groupLog}\n" +
+                              $"){groupLog}\n\n" +
                               SetColor("cyan",
                               $"{contextMessage.Message}\n")
                               );
@@ -103,7 +103,7 @@ namespace WhatsDjBotAPI
                                   $" {contextMessage.UserName} ") + "(" +
                               SetColor("blue",
                                   $"{contextMessage.UserNumber}") + 
-                              $") + {groupLog}\n" + 
+                              $"){groupLog}\n\n" + 
                               SetColor("blue",
                                   $"{contextMessage.BotResponse}")
             );
