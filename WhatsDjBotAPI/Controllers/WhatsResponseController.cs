@@ -91,7 +91,7 @@ public class WhatsResponseController : ControllerBase
     {
         List<Message>? messageHistory = await _gmHandler.GetMessagesHistory(contextMessage.UserName, contextMessage.UserNumber, 10);
 
-        contextMessage.BotResponse = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, null, _bot.BotName, _gmHandler, messageHistory);
+        contextMessage.BotResponse = await _chatGenerator.GenerateChatResponseAsync(contextMessage.Message, contextMessage.UserName, contextMessage.GroupId, _bot.BotName, _gmHandler, messageHistory);
         await contextMessage.SendResponse();
         await _gmHandler.InsertContextMessageAndResponse(contextMessage);
 
