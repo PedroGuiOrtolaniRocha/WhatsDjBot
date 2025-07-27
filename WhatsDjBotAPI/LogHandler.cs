@@ -136,5 +136,20 @@ namespace WhatsDjBotAPI
                                   SetColor("yellow", $"{args[i + 1]}"));
             }
         }
+        public static void LogOnError(Exception ex, string? customMessage = null)
+        {
+            Console.WriteLine(SetColor("red",
+                "\n\n - - - - - - - - - Erro na execução - - - - - - - - - "));
+            Console.WriteLine(SetColor("red",
+                $"{customMessage}\n\n"));
+            ;
+            Console.WriteLine($"Mensagem de erro: {ex.Message}");
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"Causa: {ex.InnerException.Message}");
+            }
+        }
     }
+
+
 }
