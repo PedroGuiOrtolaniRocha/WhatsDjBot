@@ -26,7 +26,6 @@ public class GroupMusicHandler : IGroupMusicHandler
         {
             user = new() { Phone = userPhone, Name = userName };
             user.Id = await _userRepository.InsertUser(user);
-            Console.WriteLine($"User created with ID: {user.Id}");
             return null;
         }
 
