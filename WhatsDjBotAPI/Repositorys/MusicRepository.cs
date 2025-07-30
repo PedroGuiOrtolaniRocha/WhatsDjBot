@@ -6,7 +6,7 @@ namespace WhatsDjBotAPI.Repositorys
 {
     public class MusicRepository : IMusicRepository
     {
-        DbEntity _context;
+        readonly DbEntity _context;
         public MusicRepository(DbEntity context)
         {
             _context = context;

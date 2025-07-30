@@ -6,7 +6,7 @@ namespace WhatsDjBotAPI.Repositorys
 {
     public class UserRepository : IUserRepository
     {
-        DbEntity _context;
+        readonly DbEntity _context;
         public UserRepository(DbEntity context)
         {
             _context = context;
@@ -14,12 +14,12 @@ namespace WhatsDjBotAPI.Repositorys
 
         public async Task<User>? GetUserById(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync<User>(x => x.Id == id);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<User>? GetUserByPhone(string phone)
         {
-            return await _context.Users.FirstOrDefaultAsync<User>(x => x.Phone == phone);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Phone == phone);
         }
 
         public async Task<int> InsertUser(User user)

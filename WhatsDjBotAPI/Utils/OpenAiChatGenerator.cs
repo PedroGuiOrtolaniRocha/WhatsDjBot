@@ -22,8 +22,10 @@ namespace WhatsDjBotAPI.Utils
             OnAiGenerate += LogHandler.LogOnAiChatGenerate;
             OnToolUse += LogHandler.LogOnAiToolUse;
 
-            OpenAIClientOptions options = new OpenAIClientOptions();
-            options.Endpoint = new Uri(Environment.GetEnvironmentVariable("AI_URI"));
+            OpenAIClientOptions options = new OpenAIClientOptions
+            {
+                Endpoint = new Uri(Environment.GetEnvironmentVariable("AI_URI"))
+            };
             _chatClient = new ChatClientBuilder(new OpenAIClient(new ApiKeyCredential(Environment.GetEnvironmentVariable("AI_API_KEY")), options).GetChatClient(Environment.GetEnvironmentVariable("LLM_MODEL")).AsIChatClient()).UseFunctionInvocation().Build();
         }
 

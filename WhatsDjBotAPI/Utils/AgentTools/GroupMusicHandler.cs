@@ -103,11 +103,11 @@ public class GroupMusicHandler : IGroupMusicHandler
         {
             user = new User
             {
-                Phone = phone
+                Phone = phone,
+                Name = userName
             };
-            user.Name = userName;
-            userId = await _userRepository.InsertUser(user);
-            user.Id = userId;
+
+            user.Id = await _userRepository.InsertUser(user);
 
         }
 

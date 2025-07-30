@@ -21,60 +21,60 @@ namespace WhatsDjBotAPI.Utils
             _bot = bot;
 
             Dictionary<string, object> messageData = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageDataObj.ToString());
-                Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
-                Dictionary<string, object> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["message"].ToString());
-            
-                IsGroup = messageData["key"].ToString().Contains("@g.us");
+            Dictionary<string, object> messageKey = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["key"].ToString());
+            Dictionary<string, object> messageInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(messageData["message"].ToString());
+
+            IsGroup = messageData["key"].ToString().Contains("@g.us");
 
             UserName = messageData["pushName"].ToString();
 
-                if (messageKey["fromMe"].ToString() == "true")
+            if (messageKey["fromMe"].ToString() == "true")
+            {
+                UserName = _bot.BotName;
+                UserId = _bot.BotId;
+                UserNumber = _bot.BotNumber;
+                IsMentioned = false;
+                IsResponse = false;
+                FromBot = true;
+            }
+            else if (IsGroup)
+            {
+                if (messageData.ContainsKey("contextInfo") && messageData["contextInfo"] != null)
                 {
-                    UserName = _bot.BotName;
-                    UserId = _bot.BotId;
-                    UserNumber = _bot.BotNumber;
-                    IsMentioned = false;
-                    IsResponse = false;
-                    FromBot = true;
+                    IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
                 }
-                else if (IsGroup)
-                {
-                    if (messageData.ContainsKey("contextInfo") && messageData["contextInfo"] != null)
-                    {
-                        IsResponse = messageData["contextInfo"].ToString().Contains(_bot.BotId) && messageData["contextInfo"].ToString().Contains("quotedMessage");
-                    }
-                    else
-                    {
-                        IsResponse = false;
-                    }
-
-                    UserId = messageKey["participant"].ToString();
-                    GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
-                    IsMentioned = Message.Contains("@" + _bot.BotNumber);
-                }
-
                 else
                 {
-                    IsMentioned = false;
                     IsResponse = false;
-                    UserId = messageKey["remoteJid"].ToString();
-                    GroupId = null;
                 }
 
-                UserNumber = UserId.Substring(0, 13);
-                FromBot = (UserNumber == _bot.BotNumber);
+                UserId = messageKey["participant"].ToString();
+                GroupId = messageKey.ContainsKey("remoteJid") ? messageKey["remoteJid"].ToString() : string.Empty;
+                IsMentioned = Message.Contains("@" + _bot.BotNumber);
+            }
 
-                try
-                {
-                    Message = messageInfo["conversation"].ToString();
+            else
+            {
+                IsMentioned = false;
+                IsResponse = false;
+                UserId = messageKey["remoteJid"].ToString();
+                GroupId = null;
+            }
 
-                }
-                catch (Exception e)
-                {
-                    LogHandler.LogOnError(e, $"erro ao processar texto da mensagem recebida de {UserName} ({UserNumber})");
-                    Message = "Mensagem não processada";
-                    throw;
-                }
+            UserNumber = UserId.Substring(0, 13);
+            FromBot = UserNumber == _bot.BotNumber;
+
+            try
+            {
+                Message = messageInfo["conversation"].ToString();
+
+            }
+            catch (Exception e)
+            {
+                LogHandler.LogOnError(e, $"erro ao processar texto da mensagem recebida de {UserName} ({UserNumber})");
+                Message = "Mensagem não processada";
+                throw;
+            }
         }
 
         public async Task SendResponse()
