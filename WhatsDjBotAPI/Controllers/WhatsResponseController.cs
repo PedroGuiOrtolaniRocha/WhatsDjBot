@@ -12,7 +12,7 @@ public class WhatsResponseController : ControllerBase
 {
     private readonly IGroupMusicHandler _gmHandler;
     private readonly IChatGenerator _chatGenerator;
-    private readonly BotSettings _bot;
+    private BotSettings _bot;
 
     public delegate void MessagingEventsHandler(ContextMessage contextMessage);
     private event MessagingEventsHandler onMessagingReciveing;
@@ -33,8 +33,7 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
     {
-        Console.WriteLine("Controller ativada");
-        List<Message> messages = [];
+        List<Message> messages = new List<Message>();
 
         HttpContext.Request.EnableBuffering();
 

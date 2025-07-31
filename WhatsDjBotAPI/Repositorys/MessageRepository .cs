@@ -5,7 +5,7 @@ namespace WhatsDjBotAPI.Repositorys
 {
     public class MessageRepository : IMessageRepository
     {
-        readonly DbEntity _context;
+        DbEntity _context;
         public MessageRepository(DbEntity context)
         {
             _context = context;
