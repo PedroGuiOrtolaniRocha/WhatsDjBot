@@ -33,6 +33,7 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
     {
+        Console.WriteLine("Controller ativada");
         List<Message> messages = [];
 
         HttpContext.Request.EnableBuffering();
