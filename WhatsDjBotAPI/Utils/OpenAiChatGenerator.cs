@@ -22,6 +22,8 @@ namespace WhatsDjBotAPI.Utils
             OnAiGenerate += LogHandler.LogOnAiChatGenerate;
             OnToolUse += LogHandler.LogOnAiToolUse;
 
+            Console.WriteLine("Construtor Chat generetor");
+
             OpenAIClientOptions options = new OpenAIClientOptions
             {
                 Endpoint = new Uri(Environment.GetEnvironmentVariable("AI_URI"))
