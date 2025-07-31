@@ -35,6 +35,11 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
     {
+        if (HttpContext.Request.Body == null || !HttpContext.Request.Body.CanRead)
+        {
+            return BadRequest("Request body is empty or not readable.");
+        }
+
         List<Message> messages = new List<Message>();
 
         HttpContext.Request.EnableBuffering();
