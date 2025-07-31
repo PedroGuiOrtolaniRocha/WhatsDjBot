@@ -27,6 +27,8 @@ public class WhatsResponseController : ControllerBase
 
         onMessagingReciveing += LogHandler.LogOnMessageReciveing;
         onMessagingResponse += LogHandler.LogOnMessageResponse;
+
+        Console.WriteLine("controler iniciado");
     }
 
     [HttpPost]
