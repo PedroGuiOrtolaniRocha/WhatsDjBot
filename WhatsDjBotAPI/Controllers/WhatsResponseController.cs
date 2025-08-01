@@ -31,6 +31,13 @@ public class WhatsResponseController : ControllerBase
         Console.WriteLine("controler iniciado");
     }
 
+    [HttpGet]
+    [Route("api/whatsresponse/messages-upsert")]
+    public IActionResult Get()
+    {
+        return Ok("WhatsResponseController is running.");
+    }
+
     [HttpPost]
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
