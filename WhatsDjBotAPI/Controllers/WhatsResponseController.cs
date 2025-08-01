@@ -35,8 +35,23 @@ public class WhatsResponseController : ControllerBase
     [Route("api/whatsresponse/messages-upsert")]
     public IActionResult Get()
     {
-        return Ok("WhatsResponseController is running.");
+        return Ok("WhatsResponseController is running. GET");
     }
+
+    [HttpPatch]
+    [Route("api/whatsresponse/messages-upsert")]
+    public IActionResult Patch()
+    {
+        return Ok("WhatsResponseController is running. PATCH");
+    }
+
+    [HttpPut]
+    [Route("api/whatsresponse/messages-upsert")]
+    public IActionResult Put()
+    {
+        return Ok("WhatsResponseController is running. PUT");
+    }
+
 
     [HttpPost]
     [Route("api/whatsresponse/messages-upsert")]
