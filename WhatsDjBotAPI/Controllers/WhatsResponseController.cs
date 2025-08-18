@@ -27,32 +27,8 @@ public class WhatsResponseController : ControllerBase
 
         onMessagingReciveing += LogHandler.LogOnMessageReciveing;
         onMessagingResponse += LogHandler.LogOnMessageResponse;
-
-        Console.WriteLine("controler iniciado");
     }
-
-    [HttpGet]
-    [Route("api/whatsresponse/messages-upsert")]
-    public IActionResult Get()
-    {
-        return Ok("WhatsResponseController is running. GET");
-    }
-
-    [HttpPatch]
-    [Route("api/whatsresponse/messages-upsert")]
-    public IActionResult Patch()
-    {
-        return Ok("WhatsResponseController is running. PATCH");
-    }
-
-    [HttpPut]
-    [Route("api/whatsresponse/messages-upsert")]
-    public IActionResult Put()
-    {
-        return Ok("WhatsResponseController is running. PUT");
-    }
-
-
+    
     [HttpPost]
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
