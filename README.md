@@ -48,6 +48,7 @@ README.md
    - `AI_API_KEY`
    - `LLM_MODEL`
    - `LASTFM_APIKEY`
+   - `DB_CONNECTION_STRING`
 3. Ajuste a string de conexão em `appsettings.json`.
 4. Execute o projeto:
    ```sh
