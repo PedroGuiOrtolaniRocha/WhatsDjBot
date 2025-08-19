@@ -1,6 +1,6 @@
-# WhatsDjBot
+# WhatsDjAgent
 
-WhatsDjBot é um bot para WhatsApp que armazena e recomenda músicas enviadas em grupos, utilizando IA e integração com APIs externas.
+WhatsDjAgent é um Agent A.I para WhatsApp que armazena e recomenda músicas enviadas em grupos, utilizando IA e integração com APIs externas.
 
 ## Principais Tecnologias
 
