@@ -29,6 +29,13 @@ public class WhatsResponseController : ControllerBase
         onMessagingResponse += LogHandler.LogOnMessageResponse;
     }
     
+    [HttpGet]
+    [Route("api/whatsresponse/health-check")]
+    public IActionResult HealthCheck()
+    {
+        return Ok("WhatsDjBotAPI is running.");
+    }
+
     [HttpPost]
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
