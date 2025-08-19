@@ -14,12 +14,14 @@ WhatsDjBot é um bot para WhatsApp que armazena e recomenda músicas enviadas em
 
 ## Funcionalidades
 
-- Armazenamento de links de músicas enviadas em grupos
+- Armazenamento automático de links de músicas enviadas em grupos (YouTube, Spotify, Deezer, Soundcloud)
 - Recomendações de músicas aleatórias do grupo
 - Busca de faixas populares de artistas (Last.fm)
 - Histórico de mensagens e interações
 - Respostas personalizadas usando IA
 - Suporte a múltiplas plataformas: YouTube, Spotify, Deezer, Soundcloud
+- **Responde mensagens privadas diretamente**
+- **Responde em grupos apenas quando é citado ou quando uma mensagem é uma resposta ao bot**
 
 ## Estrutura do Projeto
 
