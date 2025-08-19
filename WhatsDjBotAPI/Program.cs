@@ -30,6 +30,8 @@ namespace WhatsDjBotAPI
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -37,6 +39,14 @@ namespace WhatsDjBotAPI
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
+            // Configure the HTTP request pipeline.
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WhatsDjBotAPI v1");
+                c.RoutePrefix = "";
+            });
+            
             app.UseAuthorization();
 
             app.MapControllers();
