@@ -36,6 +36,14 @@ public class WhatsResponseController : ControllerBase
         return Ok("WhatsDjBotAPI is running.");
     }
 
+    
+    [HttpGet]
+    [Route("api")]
+    public IActionResult status()
+    {
+        return Ok("api online");
+    }
+    
     [HttpPost]
     [Route("api/whatsresponse/messages-upsert")]
     public async Task<IActionResult> RecieveAndProcessWhtasappMessage()
