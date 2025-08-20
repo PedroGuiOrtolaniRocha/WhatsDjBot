@@ -17,8 +17,7 @@ public class WhatsResponseController : ControllerBase
     public delegate void MessagingEventsHandler(ContextMessage contextMessage);
     private event MessagingEventsHandler onMessagingReciveing;
     private event MessagingEventsHandler onMessagingResponse;
-
-
+    
     public WhatsResponseController(IUserRepository userRepository, IMusicRepository musicRepository, IMessageRepository messageRepository, IChatGenerator chatGenerator)
     {
         _gmHandler = new GroupMusicHandler(userRepository, musicRepository, messageRepository);
