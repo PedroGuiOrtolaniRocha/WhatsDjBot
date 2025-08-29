@@ -69,10 +69,10 @@ public class WhatsResponseController : ControllerBase
                 reqDict["apikey"].ToString()
             );
         }
-
+        
         ContextMessage? contextMessage = ContextMessage.SetContextMessage(reqDict["data"], _bot);
 
-        if (contextMessage.FromBot || contextMessage == null)
+        if (contextMessage == null || contextMessage.FromBot)
         {
             return Ok();
         }
